@@ -8,7 +8,7 @@ using tourplanner.Models;
 
 namespace tourplanner_DAL
 {
-    class tourmapper: mapper_Base<Tour>
+    class tour_Mapper: mapper_Base<Tour>
     {
         protected override Tour Map(IDataRecord record)
         {
