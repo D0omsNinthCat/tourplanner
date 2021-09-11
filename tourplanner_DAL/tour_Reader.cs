@@ -13,7 +13,7 @@ namespace tourplanner_DAL
     {
         public override string CommandText
         {
-            get { return "SELECT tour_ID, tour_Name, tour_Distance, tour_Description FROM tours"; }
+            get { return "SELECT tour_ID, tour_Name, tour_Distance, tour_Description FROM Tours"; }
         }
 
         protected override mapper_Base<Tour> GetMapper()
