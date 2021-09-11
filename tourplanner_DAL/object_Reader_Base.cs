@@ -7,7 +7,7 @@ using System.Text;
 using Microsoft.SqlServer;
 using System.Threading.Tasks;
 
-namespace tourplanner_DAL
+namespace tourplanner.DAL
 {
     abstract class object_Reader_Base<T>
     {

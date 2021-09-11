@@ -9,4 +9,8 @@
   <ItemGroup>
     <Folder Include="Viewmodels\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\tourplanner.DAL\tourplanner.DAL.csproj" />
+  </ItemGroup>
 </Project>

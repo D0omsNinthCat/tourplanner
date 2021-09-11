@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tourplanner.Models;
 
-namespace tourplanner_DAL
+namespace tourplanner.DAL
 {
     class tour_Reader : ObjectReaderWithConnection<Tour>
     {

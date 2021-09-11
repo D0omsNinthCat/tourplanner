@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner", "tourplanner\tourplanner.csproj", "{722D9619-C40D-424E-8A04-547342B7B730}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner_DAL", "tourplanner_DAL\tourplanner_DAL.csproj", "{544ECC0A-9961-4ADA-815C-287697D06FB0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.DAL", "tourplanner_DAL\tourplanner.DAL.csproj", "{544ECC0A-9961-4ADA-815C-287697D06FB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Models", "tourplanner.Models\tourplanner.Models.csproj", "{76507421-23A1-44A0-BEC0-65ADF9DB8E30}"
 EndProject

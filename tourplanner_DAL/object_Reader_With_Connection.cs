@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tourplanner_DAL
+namespace tourplanner.DAL
 {
     abstract class ObjectReaderWithConnection<T> : object_Reader_Base<T>
     {
