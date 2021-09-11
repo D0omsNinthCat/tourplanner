@@ -6,22 +6,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace tourplanner_DAL
+namespace tourplanner.Mappers
 {
-    abstract class mapper_Base<T>
+    public abstract class mapper_Base<T>
     {
-        protected abstract T Map(IDataRecord record);
+        protected abstract T Map(IDataReader reader);
         public Collection<T> MapAll(IDataReader reader)
         {
-            Collection<T> collection = new Collection<T>();
+            var collection = new Collection<T>();
             while (reader.Read())
             {
                 try
                 {
                     collection.Add(Map(reader));
                 }
-                catch
+                catch (Exception)
                 {
                     throw;
                     // NOTE:  
@@ -30,8 +29,8 @@ namespace tourplanner_DAL
                     // if graceful recovery can be accomplished  
                 }
             }
+
             return collection;
         }
     }
-
 }
