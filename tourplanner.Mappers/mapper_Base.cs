@@ -6,8 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace tourplanner.DAL
+namespace tourplanner.Mappers
 {
     public abstract class mapper_Base<T>
     {
@@ -21,7 +20,7 @@ namespace tourplanner.DAL
                 {
                     collection.Add(Map(reader));
                 }
-                catch
+                catch (Exception)
                 {
                     throw;
                     // NOTE:  
@@ -30,8 +29,8 @@ namespace tourplanner.DAL
                     // if graceful recovery can be accomplished  
                 }
             }
+
             return collection;
         }
     }
-
 }

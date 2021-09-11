@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using Microsoft.SqlServer;
-using System.Threading.Tasks;
+using tourplanner.Mappers;
 
-namespace tourplanner.DAL
+namespace tourplanner.Readers
 {
-    abstract class object_Reader_Base<T>
+    public abstract class object_Reader_Base<T>
     {
+        protected abstract string CommandText { get; }
         protected abstract CommandType CommandType { get; }
-        public abstract string CommandText { get; }
         protected abstract IDbConnection GetConnection();
         protected abstract mapper_Base<T> GetMapper();
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command);
@@ -23,11 +19,15 @@ namespace tourplanner.DAL
             using (IDbConnection connection = GetConnection())
             {
                 IDbCommand command = connection.CreateCommand();
+                command.CommandText = CommandText;
+                command.CommandType = CommandType;
                 command.Connection = connection;
-                command.CommandType = this.CommandType;
-                command.CommandText = this.CommandText;
-                foreach (IDataParameter param in this.GetParameters(command))
-                    command.Parameters.Add(param);
+
+                foreach (IDataParameter parameter in GetParameters(command))
+                {
+                    command.Parameters.Add(parameter);
+                }
+
                 try
                 {
                     connection.Open();
@@ -58,6 +58,7 @@ namespace tourplanner.DAL
                     connection.Close();
                 }
             }
+            
         }
     }
 }
