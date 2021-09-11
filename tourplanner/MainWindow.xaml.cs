@@ -12,23 +12,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using tourplanner.DAL;
+using tourplanner.Readers;
+using tourplanner.Mappers;
 
 namespace tourplanner
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            
+
         }
 
-        private void Window_Initialized(object sender, EventArgs e)
+        private void btn1_Click(object sender, RoutedEventArgs e)
         {
-             
+            object_Reader_Tour rdr = new object_Reader_Tour();
+            mapper_Tour mpr = new mapper_Tour();
+            rdr.Execute();
         }
     }
 }

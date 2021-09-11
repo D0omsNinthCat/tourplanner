@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tourplanner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Initialized="Window_Initialized">
+        Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button x:Name="btn1" Content="Button" Click="btn1_Click"/>
 
     </Grid>
 </Window>

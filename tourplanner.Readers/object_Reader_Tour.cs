@@ -5,7 +5,7 @@ using tourplanner.Mappers;
 
 namespace tourplanner.Readers
 {
-    public class tour_Reader : object_Reader_With_Connection<Tour>
+    public class object_Reader_Tour : object_Reader_With_Connection<Tour>
     {
         protected override string CommandText
         {

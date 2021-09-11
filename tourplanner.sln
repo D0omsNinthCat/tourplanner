@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner", "tourplanner\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Models", "tourplanner.Models\tourplanner.Models.csproj", "{76507421-23A1-44A0-BEC0-65ADF9DB8E30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tourplanner.Mappers", "tourplanner.Mappers\tourplanner.Mappers.csproj", "{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Mappers", "tourplanner.Mappers\tourplanner.Mappers.csproj", "{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tourplanner.Readers", "tourplanner.Readers\tourplanner.Readers.csproj", "{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Readers", "tourplanner.Readers\tourplanner.Readers.csproj", "{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
