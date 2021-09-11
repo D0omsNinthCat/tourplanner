@@ -12,7 +12,7 @@ namespace tourplanner_DAL
     abstract class object_Reader_Base<T>
     {
         public CommandType CommandType { get; set; }
-        public string CommandText { get; set; }
+        public abstract string CommandText { get; }
         protected abstract IDbConnection GetConnection();
         protected abstract mapper_Base<T> GetMapper();
         protected abstract Collection<IDataParameter> GetParameters(IDbCommand command);
