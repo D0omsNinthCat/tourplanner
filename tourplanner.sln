@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.DAL", "tourplan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Models", "tourplanner.Models\tourplanner.Models.csproj", "{76507421-23A1-44A0-BEC0-65ADF9DB8E30}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tourplanner.Mappers", "tourplanner.Mappers\tourplanner.Mappers.csproj", "{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tourplanner.Readers", "tourplanner.Readers\tourplanner.Readers.csproj", "{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{76507421-23A1-44A0-BEC0-65ADF9DB8E30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76507421-23A1-44A0-BEC0-65ADF9DB8E30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76507421-23A1-44A0-BEC0-65ADF9DB8E30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4DEF0C-675E-4F01-9DC7-726F4F53D193}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153A98A1-5B59-447A-9D23-2CF63D9DE7F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
