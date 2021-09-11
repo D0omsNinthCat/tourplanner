@@ -28,7 +28,7 @@ namespace tourplanner
 
         private void Window_Initialized(object sender, EventArgs e)
         {
-
+             
         }
     }
 }

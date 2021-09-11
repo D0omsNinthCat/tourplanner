@@ -12,5 +12,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\tourplanner.DAL\tourplanner.DAL.csproj" />
+    <ProjectReference Include="..\tourplanner_DAL\tourplanner.DAL.csproj" />
   </ItemGroup>
 </Project>

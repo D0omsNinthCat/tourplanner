@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace tourplanner.DAL
 {
-    abstract class mapper_Base<T>
+    public abstract class mapper_Base<T>
     {
-        protected abstract T Map(IDataRecord record);
+        protected abstract T Map(IDataReader reader);
         public Collection<T> MapAll(IDataReader reader)
         {
-            Collection<T> collection = new Collection<T>();
+            var collection = new Collection<T>();
             while (reader.Read())
             {
                 try

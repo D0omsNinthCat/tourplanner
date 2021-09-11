@@ -11,10 +11,9 @@ namespace tourplanner.DAL
     abstract class ObjectReaderWithConnection<T> : object_Reader_Base<T>
     {
         private static string m_connectionString = @"Host=localhost;Username=postgres;Password=1234;Database=tourplanner";
-        protected override System.Data.IDbConnection GetConnection()
+        protected override IDbConnection GetConnection()
         {
-            IDbConnection connection = new SqlConnection(m_connectionString);
-            return connection;
+            return new SqlConnection(m_connectionString);
         }
     }
 }
