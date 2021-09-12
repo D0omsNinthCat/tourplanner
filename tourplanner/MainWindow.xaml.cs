@@ -30,7 +30,9 @@ namespace tourplanner
         {
             object_Reader_Tour rdr = new object_Reader_Tour();
             mapper_Tour mpr = new mapper_Tour();
-            rdr.Execute();
+            var test = rdr.Execute();
+
+
         }
     }
 }

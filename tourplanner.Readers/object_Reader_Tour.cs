@@ -9,7 +9,7 @@ namespace tourplanner.Readers
     {
         protected override string CommandText
         {
-            get { return "SELECT tour_ID, tour_Name, tour_Distance, tour_Description FROM Tours"; }
+            get { return "SELECT * FROM tours"; }
         }
 
         protected override CommandType CommandType

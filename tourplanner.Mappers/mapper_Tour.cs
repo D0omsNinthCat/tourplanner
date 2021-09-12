@@ -14,7 +14,7 @@ namespace tourplanner.Mappers
                 t.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
                 t.tour_Name = (DBNull.Value == reader["tour_Name"]) ? string.Empty : (string)reader["tour_Name"];
                 t.tour_Description = (DBNull.Value == reader["tour_Description"]) ? string.Empty : (string)reader["tour_Description"];
-                t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (float)reader["tour_Distance"];
+                t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
                 return t;
             }
             catch (Exception)
