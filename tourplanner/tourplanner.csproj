@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Viewmodels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -23,5 +19,10 @@
   <ItemGroup>
     <ProjectReference Include="..\tourplanner.Mappers\tourplanner.Mappers.csproj" />
     <ProjectReference Include="..\tourplanner.Readers\tourplanner.Readers.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="VIews\" />
+    <Folder Include="Viewmodels\" />
   </ItemGroup>
 </Project>
