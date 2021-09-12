@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
+using Npgsql;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +14,7 @@ namespace tourplanner.Readers
 
         protected override IDbConnection GetConnection()
         {
-            return new SqlConnection(connection_String);
+            return new NpgsqlConnection(connection_String);
         }
     }
 }
