@@ -5,9 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tourplanner"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Initialized="Window_Initialized">
     <Grid>
-        <Button x:Name="btn1" Content="Button" Click="btn1_Click"/>
-
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.33*"></ColumnDefinition>
+            <ColumnDefinition Width="0.33*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" x:Name="btn1" Content="Button" Click="btn1_Click"/>
+        <ListView x:Name="lv1" Grid.Column="1">
+            
+        </ListView>
     </Grid>
 </Window>
