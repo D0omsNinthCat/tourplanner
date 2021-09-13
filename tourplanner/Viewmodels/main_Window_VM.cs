@@ -10,7 +10,7 @@ using tourplanner.Readers;
 
 namespace tourplanner.Viewmodels
 {
-    class main_Window_VM : INotifyPropertyChanged
+    class main_Window_VM : base_VM
     {
         public main_Window_VM()
         {
@@ -26,7 +26,5 @@ namespace tourplanner.Viewmodels
         public Collection<Tour> tour_List { get; set; }
 
         public ObservableCollection<string> tour_Names { get; } = new ObservableCollection<string>();
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
