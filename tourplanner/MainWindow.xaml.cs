@@ -25,23 +25,5 @@ namespace tourplanner
         {
             InitializeComponent();
         }
-
-        private void btn1_Click(object sender, RoutedEventArgs e)
-        {
-            object_Reader_Tour rdr = new object_Reader_Tour(); 
-            Collection<Tour> test = rdr.Execute();
-
-
-        }
-
-        private void Window_Initialized(object sender, EventArgs e)
-        {
-            object_Reader_Tour rdr = new object_Reader_Tour();
-            Collection<Tour> test = rdr.Execute();
-            foreach( Tour t in test)
-            {
-                lv1.Items.Add(t.tour_Name);
-            }
-        }
     }
 }

@@ -23,6 +23,5 @@
 
   <ItemGroup>
     <Folder Include="VIews\" />
-    <Folder Include="Viewmodels\" />
   </ItemGroup>
 </Project>
