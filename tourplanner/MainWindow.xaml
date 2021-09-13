@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
-        <local:main_Window_VM></local:main_Window_VM>
+        <local:navigation_VM></local:navigation_VM>
     </Window.DataContext>
     <Window.Resources>
         <DataTemplate DataType="{x:Type local:tour_Details_VM}">
@@ -46,7 +46,7 @@
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lv1" Grid.Column="0" ItemsSource="{Binding tour_Names}">
+            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding selected_Tour_Name}" ItemsSource="{Binding tour_Names}">
             </ListView>
             <ContentControl x:Name="Pages" Grid.Column="1" Content="{Binding SelectedViewModel}"></ContentControl>
         </Grid>

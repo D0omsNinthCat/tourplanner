@@ -22,6 +22,7 @@ namespace tourplanner.Viewmodels
             }
             
         }
+        public string selected_Tour_Name { get; set; }
         public Collection<Tour> tour_List { get; set; }
 
         public ObservableCollection<string> tour_Names { get; } = new ObservableCollection<string>();
