@@ -4,11 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tourplanner.Viewmodels"
+        xmlns:views="clr-namespace:tourplanner.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
         <local:main_Window_VM></local:main_Window_VM>
     </Window.DataContext>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type local:tour_Details_VM}">
+            <views:tour_Details></views:tour_Details>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:options_VM}">
+            <views:options></views:options>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
         
         <Grid.RowDefinitions>
@@ -18,14 +27,14 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Content="File" MinWidth="50"></Button>
-            <Button Content="Options" MinWidth="50"></Button>
+            <Button Content="Options" MinWidth="50" Command="{Binding OptCommand}"></Button>
             <Button Content="Help" MinWidth="50"></Button>
         </StackPanel>
         <DockPanel Grid.Row="1">
             <Label Content="Tours" MinWidth="50"></Label>
             <Button Content="Add" MinWidth="50"></Button>
             <Button Content="Remove" MinWidth="50"></Button>
-            <Button Content="Edit" MinWidth="50"></Button>
+            <Button Content="Edit" MinWidth="50" Command="{Binding DetCommand}"></Button>
             <Button Content="Search" MinWidth="50"></Button>
             <TextBox Text="eg. Wien" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
             
@@ -39,9 +48,7 @@
             </Grid.ColumnDefinitions>
             <ListView x:Name="lv1" Grid.Column="0" ItemsSource="{Binding tour_Names}">
             </ListView>
-            <Frame Grid.Column="1">
-
-            </Frame>
+            <ContentControl x:Name="Pages" Grid.Column="1" Content="{Binding SelectedViewModel}"></ContentControl>
         </Grid>
     </Grid>
 </Window>

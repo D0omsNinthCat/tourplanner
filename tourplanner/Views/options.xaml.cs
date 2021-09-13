@@ -12,20 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using tourplanner.Readers;
-using tourplanner.Mappers;
-using System.Collections.ObjectModel;
-using tourplanner.Models;
-using tourplanner.Viewmodels;
 
-namespace tourplanner
+namespace tourplanner.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for options.xaml
+    /// </summary>
+    public partial class options : UserControl
     {
-        public MainWindow()
+        public options()
         {
             InitializeComponent();
-            this.DataContext = new navigation_VM();
         }
     }
 }
