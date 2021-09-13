@@ -27,7 +27,7 @@ namespace tourplanner.Viewmodels
 
         private void OpenDet(object obj)
         {
-            SelectedViewModel = new tour_Details_VM(selected_Tour_Name);
+            SelectedViewModel = new tour_Details_VM(selected_Tour);
         }
         private void OpenOpt(object obj)
         {

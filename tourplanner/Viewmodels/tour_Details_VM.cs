@@ -9,13 +9,15 @@ namespace tourplanner.Viewmodels
 {
     class tour_Details_VM : base_VM
     {
-
-        public string tour_Name { get; set; }
-
-        public tour_Details_VM(string selected_Tour_Name)
+        public string tour_Name;
+        public string tour_Description;
+        public string tour_Distance;
+        public Tour selected_Tour { get; set; }
+        public string selected_Tour_Name { get; set; }
+        public tour_Details_VM(Tour selected_Tour)
         {
-            this.tour_Name = selected_Tour_Name;
+            this.selected_Tour = selected_Tour;
+            this.selected_Tour_Name = selected_Tour.tour_Name;
         }
-        
     }
 }

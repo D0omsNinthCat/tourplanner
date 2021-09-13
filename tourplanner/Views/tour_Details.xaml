@@ -8,6 +8,6 @@
              d:DesignHeight="100" d:DesignWidth="100">
     
     <Grid>
-        <TextBlock Text="{Binding tour_Name}" />
+        <TextBlock Text="{Binding selected_Tour_Name}" />
     </Grid>
 </UserControl>
