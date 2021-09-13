@@ -3,10 +3,30 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:tourplanner.Views"
+             xmlns:local="clr-namespace:tourplanner.Viewmodels"
              mc:Ignorable="d" 
-             d:DesignHeight="100" d:DesignWidth="100">
+             d:DesignHeight="500" d:DesignWidth="500">
     <Grid>
-        <TextBlock Text="{Binding detailtest}"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+            <ColumnDefinition Width="0.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="Name" />
+            <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="Description" />
+            <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="From" />
+            <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="To" />
+            <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="Distance" />
+        </StackPanel>
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding selected_Tour.tour_Name}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding selected_Tour.tour_Description}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="Wien" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="Berlin" />
+            <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" Margin="10, 5,30,5" Text="{Binding selected_Tour.tour_Distance}" />
+        </StackPanel>
+        
+
     </Grid>
+    
 </UserControl>
