@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,7 +10,7 @@ using tourplanner.Readers;
 
 namespace tourplanner.Viewmodels
 {
-    public class main_Window_VM
+    class main_Window_VM : INotifyPropertyChanged
     {
         public main_Window_VM()
         {
@@ -26,6 +27,6 @@ namespace tourplanner.Viewmodels
 
         public ObservableCollection<string> tour_Names { get; } = new ObservableCollection<string>();
 
-
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

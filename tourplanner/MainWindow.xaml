@@ -10,13 +10,38 @@
         <local:main_Window_VM></local:main_Window_VM>
     </Window.DataContext>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.33*"></ColumnDefinition>
-            <ColumnDefinition Width="0.33*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" x:Name="btn1" Content="Button"/>
-        <ListView x:Name="lv1" Grid.Column="1" ItemsSource="{Binding tour_Names}">
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Content="File" MinWidth="50"></Button>
+            <Button Content="Options" MinWidth="50"></Button>
+            <Button Content="Help" MinWidth="50"></Button>
+        </StackPanel>
+        <DockPanel Grid.Row="1">
+            <Label Content="Tours" MinWidth="50"></Label>
+            <Button Content="Add" MinWidth="50"></Button>
+            <Button Content="Remove" MinWidth="50"></Button>
+            <Button Content="Edit" MinWidth="50"></Button>
+            <Button Content="Search" MinWidth="50"></Button>
+            <TextBox Text="eg. Wien" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
             
-        </ListView>
+
+        </DockPanel>
+
+            <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.33*"></ColumnDefinition>
+                <ColumnDefinition Width="0.33*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="lv1" Grid.Column="0" ItemsSource="{Binding tour_Names}">
+            </ListView>
+            <Frame Grid.Column="1">
+
+            </Frame>
+        </Grid>
     </Grid>
 </Window>
