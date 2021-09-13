@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Apache.NMS.ActiveMQ" Version="1.8.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -19,9 +20,5 @@
   <ItemGroup>
     <ProjectReference Include="..\tourplanner.Mappers\tourplanner.Mappers.csproj" />
     <ProjectReference Include="..\tourplanner.Readers\tourplanner.Readers.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="VIews\" />
   </ItemGroup>
 </Project>

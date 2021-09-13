@@ -18,7 +18,6 @@ namespace tourplanner.Viewmodels
             tour_List = rdr.Execute();
             foreach (Tour t in tour_List)
             {
-                //lv1.Items.Add(t.tour_Name);
                 tour_Names.Add(t.tour_Name);
             }
             
