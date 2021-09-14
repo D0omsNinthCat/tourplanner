@@ -5,11 +5,11 @@ using tourplanner.Mappers;
 
 namespace tourplanner.Readers
 {
-    public class object_Reader_Tour : object_Reader_With_Connection<Tour>
+    public class object_Deleter_Tour : object_Reader_With_Connection<Tour>
     {
         protected override string CommandText
         {
-            get { return "SELECT * FROM tours"; }
+            get { return "DELETE FROM tours WHERE tour_ID = 1"; }
         }
 
         protected override CommandType CommandType
@@ -24,6 +24,10 @@ namespace tourplanner.Readers
         {
             Collection<IDataParameter> collection = new Collection<IDataParameter>();
             return collection;
+        }
+        protected override Collection<Tour> Execute()
+        {
+
         }
     }
 }

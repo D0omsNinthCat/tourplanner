@@ -32,7 +32,7 @@
         </StackPanel>
         <DockPanel Grid.Row="1">
             <Label Content="Tours" MinWidth="50"></Label>
-            <Button Content="Add" MinWidth="50"></Button>
+            <Button Content="Add" MinWidth="50" Command="{Binding AddCommand}"></Button>
             <Button Content="Remove" MinWidth="50"></Button>
             <Button Content="Edit" MinWidth="50" Command="{Binding DetCommand}"></Button>
             <Button Content="Search" MinWidth="50"></Button>
