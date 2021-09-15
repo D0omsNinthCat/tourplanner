@@ -12,19 +12,20 @@ namespace tourplanner.Viewmodels
 {
     public class main_Window_VM : base_VM
     {
-        private DAO dataAccessObject = new DAO();
+
         public main_Window_VM()
         {
             string Dummy_List = "testetsestset";
-            ObservableCollection<Tour> Tour_List = new ObservableCollection<Tour>(dataAccessObject.GetTourList());
             DetCommand = new BaseCommand(OpenDet);
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
             DelCommand = new BaseCommand(OpenDel);
+            GetTours();
         }
-        public Tour selected_Tour;
-        public ObservableCollection<Tour> tour_List;
-        public string dummy_List;
+        public Tour selected_Tour { get; set; }
+        private DAO dataAccessObject { get; set; }
+        public ObservableCollection<Tour> tour_List { get; set; }
+        public string dummy_List { get; set; }
         public ICommand DetCommand { get; set; }
         public ICommand OptCommand { get; set; }
         public ICommand AddCommand { get; set; }
@@ -32,42 +33,48 @@ namespace tourplanner.Viewmodels
 
         private object selectedViewModel;
 
-        public ObservableCollection<Tour> Tour_List
+        public void GetTours()
         {
-            get { return tour_List; }
-            set
-            {
-                if ((value != null) && (tour_List != value))
-                {
-                    tour_List = value;
-                    OnPropertyChanged(nameof(tour_List));
-                }
-            }
+            dataAccessObject = new DAO();
+            tour_List = new ObservableCollection<Tour>(dataAccessObject.GetTourList());
         }
-        public Tour Selected_Tour
-        {
-            get { return selected_Tour; }
-            set
-            {
-                if ((value != null) && (selected_Tour != value))
-                {
-                    selected_Tour = value;
-                    OnPropertyChanged(nameof(selected_Tour));
-                }
-            }
-        }
-        public string Dummy_List
-        {
-            get { return dummy_List; }
-            set
-            {
-                if ((value != null) && (dummy_List != value))
-                {
-                    dummy_List = value;
-                    OnPropertyChanged(nameof(dummy_List));
-                }
-            }
-        }
+
+        //public ObservableCollection<Tour> Tour_List
+        //{
+        //    get { return tour_List; }
+        //    set
+        //    {
+        //        if ((value != null) && (tour_List != value))
+        //        {
+        //            tour_List = value;
+        //            OnPropertyChanged(nameof(tour_List));
+        //        }
+        //    }
+        //}
+        //public Tour Selected_Tour
+        //{
+        //    get { return selected_Tour; }
+        //    set
+        //    {
+        //        if ((value != null) && (selected_Tour != value))
+        //        {
+        //            selected_Tour = value;
+        //            OnPropertyChanged(nameof(selected_Tour));
+        //        }
+        //    }
+        //}
+        //public string Dummy_List
+        //{
+        //    get { return dummy_List; }
+        //    set
+        //    {
+        //        if ((value != null) && (dummy_List != value))
+        //        {
+        //            dummy_List = value;
+        //            OnPropertyChanged(nameof(dummy_List));
+        //        }
+        //    }
+        //}
 
 
 
