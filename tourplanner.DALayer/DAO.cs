@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tourplanner.Models;
 
-namespace tourplanner.DAL
+namespace tourplanner.DALayer
 {
     public class DAO
     {
@@ -17,6 +17,10 @@ namespace tourplanner.DAL
         public List<Tour> GetTourList()
         {
             return dataAccessObject.GetTourList();
+        }
+        public void DeleteTour(Tour t)
+        {
+            dataAccessObject.DeleteTour(t);
         }
     }
 }

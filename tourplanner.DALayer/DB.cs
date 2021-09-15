@@ -7,7 +7,7 @@ using Npgsql;
 using System.Configuration;
 using System.Data;
 
-namespace tourplanner.DAL
+namespace tourplanner.DALayer
 {
     public class DB : DB_Interface
     {
@@ -52,14 +52,21 @@ namespace tourplanner.DAL
                 List<Tour> tours = new List<Tour>();
                 NpgsqlCommand command = new NpgsqlCommand(sql_command, connection);
                 connection.Open();
+                //IDataReader reader = command.ExecuteReader();
+
+                
                 using (IDataReader reader = command.ExecuteReader())
                 {
-                    Tour t = new Tour();
-                    t.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
-                    t.tour_Name = (DBNull.Value == reader["tour_Name"]) ? string.Empty : (string)reader["tour_Name"];
-                    t.tour_Description = (DBNull.Value == reader["tour_Description"]) ? string.Empty : (string)reader["tour_Description"];
-                    t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
-                    tours.Add(t);
+                    while (reader.Read())
+                    {
+                        Tour t = new Tour();
+                        t.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
+                        t.tour_Name = (DBNull.Value == reader["tour_Name"]) ? string.Empty : (string)reader["tour_Name"];
+                        t.tour_Description = (DBNull.Value == reader["tour_Description"]) ? string.Empty : (string)reader["tour_Description"];
+                        t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
+                        tours.Add(t);
+                    }
+                    connection.Close();
                     return tours;
                 }
             }
@@ -68,6 +75,24 @@ namespace tourplanner.DAL
                 return new List<Tour>();
                 throw;
                 //SAY SOMETHING
+            }
+        }
+        public void DeleteTour(Tour t)
+        {
+            try
+            {
+                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("DELETE FROM tours WHERE \"tour_ID\" = (@p)", connection))
+                {
+                    cmd.Parameters.AddWithValue("p", t.tour_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

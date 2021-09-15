@@ -12,22 +12,45 @@ namespace tourplanner.Viewmodels
 {
     public class main_Window_VM : base_VM
     {
-        private DAO dataAccessObject = new DAO();
+
         public main_Window_VM()
         {
-            List<Tour> tour_List = dataAccessObject.GetTourList();
+            string Dummy_List = "testetsestset";
             DetCommand = new BaseCommand(OpenDet);
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
+            DelCommand = new BaseCommand(OpenDel);
+            GetTours();
         }
         public Tour selected_Tour { get; set; }
-        public Collection<Tour> tour_List { get; set; }
-        public ObservableCollection<string> tour_Names { get; } = new ObservableCollection<string>();
+        private DAO dataAccessObject { get; set; }
+        public ObservableCollection<Tour> tour_List { get; set; }
+        public string dummy_List { get; set; }
         public ICommand DetCommand { get; set; }
         public ICommand OptCommand { get; set; }
         public ICommand AddCommand { get; set; }
+        public ICommand DelCommand { get; set; }
 
         private object selectedViewModel;
+
+        public void GetTours()
+        {
+            dataAccessObject = new DAO();
+            tour_List = new ObservableCollection<Tour>(dataAccessObject.GetTourList());
+        }
+
+        //public ObservableCollection<Tour> Tour_List
+        //{
+        //    get { return tour_List; }
+        //    set
+        //    {
+        //        if ((value != null) && (tour_List != value))
+        //        {
+        //            tour_List = value;
+        //            OnPropertyChanged(nameof(tour_List));
+        //        }
+        //    }
+        //}
         //public Tour Selected_Tour
         //{
         //    get { return selected_Tour; }
@@ -40,6 +63,20 @@ namespace tourplanner.Viewmodels
         //        }
         //    }
         //}
+        //public string Dummy_List
+        //{
+        //    get { return dummy_List; }
+        //    set
+        //    {
+        //        if ((value != null) && (dummy_List != value))
+        //        {
+        //            dummy_List = value;
+        //            OnPropertyChanged(nameof(dummy_List));
+        //        }
+        //    }
+        //}
+
+
 
         //source: https://social.technet.microsoft.com/wiki/contents/articles/30898.simple-navigation-technique-in-wpf-using-mvvm.aspx
 
@@ -61,6 +98,10 @@ namespace tourplanner.Viewmodels
         private void OpenAdd(object obj)
         {
             SelectedViewModel = new tour_Add_VM();
+        }
+        private void OpenDel(object obj)
+        {
+            dataAccessObject.DeleteTour(selected_Tour);
         }
 
         public class BaseCommand : ICommand
