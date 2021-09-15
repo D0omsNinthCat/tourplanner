@@ -18,5 +18,9 @@ namespace tourplanner.DALayer
         {
             return dataAccessObject.GetTourList();
         }
+        public void DeleteTour(Tour t)
+        {
+            dataAccessObject.DeleteTour(t);
+        }
     }
 }

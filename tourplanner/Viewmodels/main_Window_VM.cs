@@ -101,7 +101,7 @@ namespace tourplanner.Viewmodels
         }
         private void OpenDel(object obj)
         {
-            
+            dataAccessObject.DeleteTour(selected_Tour);
         }
 
         public class BaseCommand : ICommand

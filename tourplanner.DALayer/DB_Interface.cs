@@ -9,5 +9,6 @@ namespace tourplanner.DALayer
     public interface DB_Interface
     {
         public List<Tour> GetTourList();
+        public void DeleteTour(Tour t);
     }
 }

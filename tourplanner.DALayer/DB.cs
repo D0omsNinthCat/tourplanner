@@ -66,6 +66,7 @@ namespace tourplanner.DALayer
                         t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
                         tours.Add(t);
                     }
+                    connection.Close();
                     return tours;
                 }
             }
@@ -74,6 +75,24 @@ namespace tourplanner.DALayer
                 return new List<Tour>();
                 throw;
                 //SAY SOMETHING
+            }
+        }
+        public void DeleteTour(Tour t)
+        {
+            try
+            {
+                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("DELETE FROM tours WHERE \"tour_ID\" = (@p)", connection))
+                {
+                    cmd.Parameters.AddWithValue("p", t.tour_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
