@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tourplanner.Mappers\tourplanner.Mappers.csproj" />
-    <ProjectReference Include="..\tourplanner.Readers\tourplanner.Readers.csproj" />
+    <ProjectReference Include="..\tourplanner.DALayer\tourplanner.DALayer.csproj" />
+    <ProjectReference Include="..\tourplanner.Models\tourplanner.Models.csproj" />
   </ItemGroup>
 </Project>

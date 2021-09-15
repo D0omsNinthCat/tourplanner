@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace tourplanner.Viewmodels
 {
-    class options_VM : base_VM
+    class tour_Add_VM : base_VM
     {
-        public string optiontest => $"TODO: this";
+
     }
 }

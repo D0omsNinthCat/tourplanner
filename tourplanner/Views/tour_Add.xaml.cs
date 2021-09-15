@@ -11,15 +11,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using tourplanner.Models;
-using tourplanner.Viewmodels;
 
-namespace tourplanner
+namespace tourplanner.Views
 {
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Interaction logic for tour_Add.xaml
+    /// </summary>
+    public partial class tour_Add : UserControl
     {
-        public MainWindow()
+        public tour_Add()
         {
             InitializeComponent();
         }
