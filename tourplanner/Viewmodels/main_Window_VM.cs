@@ -2,21 +2,20 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using tourplanner.Models;
 using System.Windows.Input;
-using tourplanner.Readers;
+using tourplanner.DALayer;
 
 namespace tourplanner.Viewmodels
 {
     public class main_Window_VM : base_VM
     {
+        private DAO dataAccessObject = new DAO();
         public main_Window_VM()
         {
-            object_Reader_Tour rdr = new object_Reader_Tour();
-            tour_List = rdr.Execute();
+            List<Tour> tour_List = dataAccessObject.GetTourList();
             DetCommand = new BaseCommand(OpenDet);
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
