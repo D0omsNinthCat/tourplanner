@@ -29,11 +29,12 @@
             <Button Content="File" MinWidth="50"></Button>
             <Button Content="Options" MinWidth="50" Command="{Binding OptCommand}"></Button>
             <Button Content="Help" MinWidth="50"></Button>
+            <TextBlock Text="{Binding Dummy_List}" Width="200"></TextBlock>
         </StackPanel>
         <DockPanel Grid.Row="1">
             <Label Content="Tours" MinWidth="50"></Label>
             <Button Content="Add" MinWidth="50" Command="{Binding AddCommand}"></Button>
-            <Button Content="Remove" MinWidth="50"></Button>
+            <Button Content="Remove" MinWidth="50" Command="{Binding DelCommand}"></Button>
             <Button Content="Edit" MinWidth="50" Command="{Binding DetCommand}"></Button>
             <Button Content="Search" MinWidth="50"></Button>
             <TextBox Text="eg. Wien" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
@@ -46,7 +47,7 @@
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding selected_Tour}" SelectedIndex="0" DisplayMemberPath="tour_Name" ItemsSource="{Binding tour_List}">
+            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding Selected_Tour}" SelectedIndex="0" ItemsSource="{Binding Tour_List}">
             </ListView>
             <ContentControl x:Name="Pages" Grid.Column="1" Content="{Binding SelectedViewModel}"></ContentControl>
         </Grid>

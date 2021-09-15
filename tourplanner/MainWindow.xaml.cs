@@ -21,7 +21,9 @@ namespace tourplanner
     {
         public MainWindow()
         {
+            DataContext = new main_Window_VM();
             InitializeComponent();
+            
         }
     }
 }
