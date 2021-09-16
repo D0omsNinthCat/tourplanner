@@ -95,5 +95,23 @@ namespace tourplanner.DALayer
                 throw;
             }
         }
+        public void EditTour(Tour t)
+        {
+            try
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@p), \"tour_Description\"=(@o)", connection))
+                {
+                    cmd.Parameters.AddWithValue("p", t.tour_Name);
+                    cmd.Parameters.AddWithValue("o", t.tour_Description);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
