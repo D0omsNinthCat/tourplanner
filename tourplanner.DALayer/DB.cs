@@ -8,6 +8,10 @@ using System.Configuration;
 using System.Data;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Windows.Media.Imaging;
+using System.IO;
+using System.Net;
+using System.Drawing;
 
 namespace tourplanner.DALayer
 {
@@ -70,6 +74,7 @@ namespace tourplanner.DALayer
                         t.tour_From = (DBNull.Value == reader["tour_From"]) ? string.Empty : (string)reader["tour_From"];
                         t.tour_To = (DBNull.Value == reader["tour_To"]) ? string.Empty : (string)reader["tour_To"];
                         t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
+                        t.tour_Map = (DBNull.Value == reader["tour_Map"]) ? string.Empty : (string)reader["tour_Map"];
                         tours.Add(t);
                     }
                     connection.Close();
@@ -107,13 +112,15 @@ namespace tourplanner.DALayer
             try
             {
                 connection.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t) WHERE \"tour_ID\"=(@i)", connection))
+                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t), \"tour_Distance\"=(@k), \"tour_Map\"=(@m) WHERE \"tour_ID\"=(@i)", connection))
                 {
                     cmd.Parameters.AddWithValue("n", t.tour_Name);
                     cmd.Parameters.AddWithValue("d", t.tour_Description);
                     cmd.Parameters.AddWithValue("f", t.tour_From);
                     cmd.Parameters.AddWithValue("t", t.tour_To);
                     cmd.Parameters.AddWithValue("i", t.tour_ID);
+                    cmd.Parameters.AddWithValue("k", t.tour_Distance);
+                    cmd.Parameters.AddWithValue("m", t.tour_Map);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -129,12 +136,14 @@ namespace tourplanner.DALayer
             try
             {
                 connection.Open();
-                using(var cmd = new NpgsqlCommand("INSERT INTO tours (\"tour_Name\", \"tour_Description\", \"tour_From\", \"tour_To\") VALUES ((@n),(@d),(@f),(@t));", connection))
+                using(var cmd = new NpgsqlCommand("INSERT INTO tours (\"tour_Name\", \"tour_Description\", \"tour_From\", \"tour_To\", \"tour_Distance\", \"tour_Map\") VALUES ((@n),(@d),(@f),(@t),(@k),(@m));", connection))
                 {
                     cmd.Parameters.AddWithValue("n", t.tour_Name);
                     cmd.Parameters.AddWithValue("d", t.tour_Description);
                     cmd.Parameters.AddWithValue("f", t.tour_From);
                     cmd.Parameters.AddWithValue("t", t.tour_To);
+                    cmd.Parameters.AddWithValue("k", t.tour_Distance);
+                    cmd.Parameters.AddWithValue("m", t.tour_Map);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -154,6 +163,12 @@ namespace tourplanner.DALayer
                 string result_s = await result.Content.ReadAsStringAsync();
                 JObject result_j = JObject.Parse(result_s);
                 t.tour_Distance = double.Parse(result_j["route"]["distance"].ToString());
+
+                t.tour_Map = $"{filePath}{t.tour_ID}.jpg";
+                using (WebClient client_w = new WebClient())
+                {
+                    client_w.DownloadFile(new Uri($"https://www.mapquestapi.com/staticmap/v5/map?locations={t.tour_From}||{t.tour_To}&size=170,170&key={APIkey}"), $@"{t.tour_Map}");
+                }
             }
             catch(Exception)
             {

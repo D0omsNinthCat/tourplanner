@@ -1,4 +1,5 @@
-﻿namespace tourplanner.Models
+﻿
+namespace tourplanner.Models
 {
     public class Tour
     {
@@ -8,6 +9,6 @@
         public double tour_Distance { get; set; }
         public string tour_From { get; set; }
         public string tour_To { get; set; }
-
+        public string tour_Map { get; set; }
     }
 }
