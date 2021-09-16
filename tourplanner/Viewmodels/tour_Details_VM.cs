@@ -13,6 +13,7 @@ namespace tourplanner.Viewmodels
         public Tour selected_Tour { get; set; } //Zwischenspeichern falls verändert aber nicht Edited wird
 
         public ICommand _editFunc;
+        public ICommand _copyFunc;
         private DAO dataAccessObject { get; set; }
         private RelayCommand RelayCommand { get; set; }
         public tour_Details_VM(Tour selected_Tour)
@@ -30,7 +31,18 @@ namespace tourplanner.Viewmodels
                 return _editFunc;
             }
         }
-        
+        public ICommand CopyFunc
+        {
+            get
+            {
+                if (_copyFunc == null)
+                {
+                    _copyFunc = new RelayCommand(param => this.CopyTour(), param => this.CanExecute());
+                }
+                return _copyFunc;
+            }
+        }
+
         private bool CanExecute()
         {
             //ADD CONDITIONS
@@ -42,6 +54,13 @@ namespace tourplanner.Viewmodels
             dataAccessObject.EditTour(selected_Tour);
             //Not sure what this is doing. How do I change back to "no User Control"?
             SelectedViewModel = new main_Window_VM(); 
+        }
+        private void CopyTour()
+        {
+            dataAccessObject = new DAO();
+            dataAccessObject.AddTour(selected_Tour);
+            //Not sure what this is doing. How do I change back to "no User Control"?
+            SelectedViewModel = new main_Window_VM();
         }
     }
 }

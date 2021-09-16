@@ -167,7 +167,7 @@ namespace tourplanner.DALayer
                 t.tour_Map = $"{filePath}{t.tour_ID}.jpg";
                 using (WebClient client_w = new WebClient())
                 {
-                    client_w.DownloadFile(new Uri($"https://www.mapquestapi.com/staticmap/v5/map?locations={t.tour_From}||{t.tour_To}&size=170,170&key={APIkey}"), $@"{t.tour_Map}");
+                    client_w.DownloadFile(new Uri($"https://www.mapquestapi.com/staticmap/v5/map?start={t.tour_From}&end={t.tour_To}&size=170,170&key={APIkey}"), $@"{t.tour_Map}");
                 }
             }
             catch(Exception)

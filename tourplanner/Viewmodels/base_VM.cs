@@ -12,7 +12,7 @@ namespace tourplanner.Viewmodels
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private object selectedViewModel;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
