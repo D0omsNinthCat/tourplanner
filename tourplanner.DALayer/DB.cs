@@ -6,6 +6,8 @@ using tourplanner.Models;
 using Npgsql;
 using System.Configuration;
 using System.Data;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace tourplanner.DALayer
 {
@@ -14,6 +16,8 @@ namespace tourplanner.DALayer
         private static DB database_instance;
         private NpgsqlConnection connection;
         private string connectionstring = ConfigurationManager.AppSettings.Get("connectionstring");
+        private string APIkey = ConfigurationManager.AppSettings.Get("apikey");
+        private string filePath = ConfigurationManager.AppSettings.Get("filepath");
 
         private DB()
         {
@@ -97,8 +101,9 @@ namespace tourplanner.DALayer
                 throw;
             }
         }
-        public void EditTour(Tour t)
+        public async void EditTour(Tour t)
         {
+            t = await GetAPI(t);
             try
             {
                 connection.Open();
@@ -118,8 +123,9 @@ namespace tourplanner.DALayer
                 throw;
             }
         }
-        public void AddTour(Tour t)
+        public async void AddTour(Tour t)
         {
+            t = await GetAPI(t);
             try
             {
                 connection.Open();
@@ -139,5 +145,23 @@ namespace tourplanner.DALayer
                 throw;
             }
         }
+        public async Task<Tour> GetAPI(Tour t)
+        {
+            HttpClient client = new HttpClient();
+            try
+            {
+                var result = await client.GetAsync(new Uri($"http://www.mapquestapi.com/directions/v2/route?key={APIkey}&from={t.tour_From}&to={t.tour_To}"));
+                string result_s = await result.Content.ReadAsStringAsync();
+                JObject result_j = JObject.Parse(result_s);
+                t.tour_Distance = double.Parse(result_j["route"]["distance"].ToString());
+            }
+            catch(Exception)
+            {
+                throw;
+            }
+
+            return await Task.FromResult(t);
+        }
+        
     }
 }
