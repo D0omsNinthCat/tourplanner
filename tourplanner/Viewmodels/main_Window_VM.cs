@@ -15,7 +15,6 @@ namespace tourplanner.Viewmodels
 
         public main_Window_VM()
         {
-            string Dummy_List = "testetsestset";
             DetCommand = new BaseCommand(OpenDet);
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
@@ -39,18 +38,18 @@ namespace tourplanner.Viewmodels
             tour_List = new ObservableCollection<Tour>(dataAccessObject.GetTourList());
         }
 
-        //public ObservableCollection<Tour> Tour_List
-        //{
-        //    get { return tour_List; }
-        //    set
-        //    {
-        //        if ((value != null) && (tour_List != value))
-        //        {
-        //            tour_List = value;
-        //            OnPropertyChanged(nameof(tour_List));
-        //        }
-        //    }
-        //}
+        public ObservableCollection<Tour> Tour_List
+        {
+            get { return tour_List; }
+            set
+            {
+                if ((value != null) && (tour_List != value))
+                {
+                    tour_List = value;
+                    OnPropertyChanged(nameof(tour_List));
+                }
+            }
+        }
         //public Tour Selected_Tour
         //{
         //    get { return selected_Tour; }
@@ -81,7 +80,7 @@ namespace tourplanner.Viewmodels
         //source: https://social.technet.microsoft.com/wiki/contents/articles/30898.simple-navigation-technique-in-wpf-using-mvvm.aspx
 
         //Navigation Handeling
-        
+
 
         private void OpenDet(object obj)
         {
@@ -97,7 +96,8 @@ namespace tourplanner.Viewmodels
         }
         private void OpenAdd(object obj)
         {
-            SelectedViewModel = new tour_Add_VM();
+            Tour t = new Tour();
+            SelectedViewModel = new tour_Add_VM(t);
         }
         private void OpenDel(object obj)
         {

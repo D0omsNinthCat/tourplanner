@@ -17,6 +17,9 @@
         <DataTemplate DataType="{x:Type local:options_VM}">
             <views:options></views:options>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:tour_Add_VM}">
+            <views:tour_Add></views:tour_Add>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         
@@ -29,7 +32,6 @@
             <Button Content="File" MinWidth="50"></Button>
             <Button Content="Options" MinWidth="50" Command="{Binding OptCommand}"></Button>
             <Button Content="Help" MinWidth="50"></Button>
-            <TextBlock Text="{Binding dummy_List}" Width="200"></TextBlock>
         </StackPanel>
         <DockPanel Grid.Row="1">
             <Label Content="Tours" MinWidth="50"></Label>

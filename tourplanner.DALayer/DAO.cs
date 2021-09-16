@@ -26,5 +26,9 @@ namespace tourplanner.DALayer
         {
             dataAccessObject.EditTour(t);
         }
+        public void AddTour(Tour t)
+        {
+            dataAccessObject.AddTour(t);
+        }
     }
 }

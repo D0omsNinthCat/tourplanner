@@ -14,6 +14,10 @@ namespace tourplanner.Viewmodels
         public ICommand _editFunc;
         private DAO dataAccessObject { get; set; }
         private RelayCommand RelayCommand { get; set; }
+        public tour_Details_VM(Tour selected_Tour)
+        {
+            this.selected_Tour = selected_Tour;
+        }
         public ICommand EditFunc
         {
             get
@@ -25,10 +29,7 @@ namespace tourplanner.Viewmodels
                 return _editFunc;
             }
         }
-        public tour_Details_VM(Tour selected_Tour)
-        {
-            this.selected_Tour = selected_Tour;
-        }
+        
         private bool CanExecute()
         {
             //ADD CONDITIONS
