@@ -45,6 +45,7 @@ namespace tourplanner.Viewmodels
             }
         }
 
+
         public ObservableCollection<Tour> Tour_List
         {
             get { return tour_List; }
@@ -57,18 +58,19 @@ namespace tourplanner.Viewmodels
                 }
             }
         }
-        //public Tour Selected_Tour
-        //{
-        //    get { return selected_Tour; }
-        //    set
-        //    {
-        //        if ((value != null) && (selected_Tour != value))
-        //        {
-        //            selected_Tour = value;
-        //            OnPropertyChanged(nameof(selected_Tour));
-        //        }
-        //    }
-        //}
+        public Tour Selected_Tour
+        {
+            get { return selected_Tour; }
+            set
+            {
+                if ((value != null) && (selected_Tour != value))
+                {
+                    selected_Tour = value;
+                    SelectedViewModel = new home_VM(selected_Tour);
+                    OnPropertyChanged(nameof(selected_Tour));
+                }
+            }
+        }
         //public string Dummy_List
         //{
         //    get { return dummy_List; }

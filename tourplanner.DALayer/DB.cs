@@ -74,6 +74,7 @@ namespace tourplanner.DALayer
                         t.tour_From = (DBNull.Value == reader["tour_From"]) ? string.Empty : (string)reader["tour_From"];
                         t.tour_To = (DBNull.Value == reader["tour_To"]) ? string.Empty : (string)reader["tour_To"];
                         t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
+                        t.tour_Map = (DBNull.Value == reader["tour_Map"]) ? string.Empty : (string)reader["tour_Map"];
                         tours.Add(t);
                     }
                     connection.Close();
@@ -162,6 +163,7 @@ namespace tourplanner.DALayer
                 string result_s = await result.Content.ReadAsStringAsync();
                 JObject result_j = JObject.Parse(result_s);
                 t.tour_Distance = double.Parse(result_j["route"]["distance"].ToString());
+
                 t.tour_Map = $"{filePath}{t.tour_ID}.jpg";
                 using (WebClient client_w = new WebClient())
                 {

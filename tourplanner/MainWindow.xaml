@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tourplanner.Viewmodels"
         xmlns:views="clr-namespace:tourplanner.Views"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -19,6 +20,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type local:tour_Add_VM}">
             <views:tour_Add></views:tour_Add>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type local:home_VM}">
+            <views:home></views:home>
         </DataTemplate>
     </Window.Resources>
     <Grid>
@@ -49,7 +53,8 @@
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding selected_Tour}" SelectedIndex="0" DisplayMemberPath="tour_Name" ItemsSource="{Binding Tour_List}">
+            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding Selected_Tour}" SelectedIndex="0" DisplayMemberPath="tour_Name" ItemsSource="{Binding Tour_List}">
+                
             </ListView>
             <ContentControl x:Name="Pages" Grid.Column="1" Content="{Binding SelectedViewModel}"></ContentControl>
         </Grid>
