@@ -42,6 +42,7 @@ namespace tourplanner.Viewmodels
             foreach(Tour t in dataAccessObject.GetTourList())
             {
                 Tour_List.Add(t);
+                //BUG: Tour_List Binding does not update even when emptying and refilling List with new items
             }
         }
 

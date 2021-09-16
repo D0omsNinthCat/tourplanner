@@ -53,7 +53,7 @@
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
                 <ColumnDefinition Width="0.33*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding Selected_Tour}" SelectedIndex="0" DisplayMemberPath="tour_Name" ItemsSource="{Binding Tour_List}">
+            <ListView x:Name="lv1" Grid.Column="0" SelectedItem="{Binding Selected_Tour}" SelectedIndex="0" DisplayMemberPath="tour_Name"  ItemsSource="{Binding Tour_List}">
                 
             </ListView>
             <ContentControl x:Name="Pages" Grid.Column="1" Content="{Binding SelectedViewModel}"></ContentControl>

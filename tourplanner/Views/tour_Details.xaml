@@ -30,6 +30,7 @@
             <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" Margin="10, 5,30,5" Text="{Binding selected_Tour.tour_Distance}" />
 
         </StackPanel>
+        <Button Grid.Row="1" Grid.Column="0" Content="Copy" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=CopyFunc}"></Button>
         <Button Grid.Row="1" Grid.Column="1" Content="Edit" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=EditFunc}"></Button>
     </Grid>
 </UserControl>
