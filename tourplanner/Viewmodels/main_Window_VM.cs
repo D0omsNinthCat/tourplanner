@@ -31,7 +31,7 @@ namespace tourplanner.Viewmodels
         public ICommand AddCommand { get; set; }
         public ICommand DelCommand { get; set; }
 
-        private object selectedViewModel;
+
 
         public void GetTours()
         {
@@ -81,15 +81,15 @@ namespace tourplanner.Viewmodels
         //source: https://social.technet.microsoft.com/wiki/contents/articles/30898.simple-navigation-technique-in-wpf-using-mvvm.aspx
 
         //Navigation Handeling
-        public object SelectedViewModel
-        {
-            get { return selectedViewModel; }
-            set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
-        }
+        
 
         private void OpenDet(object obj)
         {
-            SelectedViewModel = new tour_Details_VM(selected_Tour);
+            if(selected_Tour != null)
+            {
+                SelectedViewModel = new tour_Details_VM(selected_Tour);
+            }
+            
         }
         private void OpenOpt(object obj)
         {
@@ -102,6 +102,9 @@ namespace tourplanner.Viewmodels
         private void OpenDel(object obj)
         {
             dataAccessObject.DeleteTour(selected_Tour);
+            tour_List.Remove(selected_Tour);
+            selected_Tour = tour_List[0];
+            
         }
 
         public class BaseCommand : ICommand
