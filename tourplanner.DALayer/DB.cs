@@ -102,7 +102,28 @@ namespace tourplanner.DALayer
             try
             {
                 connection.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t)", connection))
+                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t) WHERE \"tour_ID\"=(@i)", connection))
+                {
+                    cmd.Parameters.AddWithValue("n", t.tour_Name);
+                    cmd.Parameters.AddWithValue("d", t.tour_Description);
+                    cmd.Parameters.AddWithValue("f", t.tour_From);
+                    cmd.Parameters.AddWithValue("t", t.tour_To);
+                    cmd.Parameters.AddWithValue("i", t.tour_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void AddTour(Tour t)
+        {
+            try
+            {
+                connection.Open();
+                using(var cmd = new NpgsqlCommand("INSERT INTO tours (\"tour_Name\", \"tour_Description\", \"tour_From\", \"tour_To\") VALUES ((@n),(@d),(@f),(@t));", connection))
                 {
                     cmd.Parameters.AddWithValue("n", t.tour_Name);
                     cmd.Parameters.AddWithValue("d", t.tour_Description);
@@ -111,8 +132,9 @@ namespace tourplanner.DALayer
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
+
             }
-            catch (Exception)
+            catch(Exception)
             {
                 throw;
             }

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:tourplanner.Views"
+             xmlns:local="clr-namespace:tourplanner.Viewmodels"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -11,6 +11,10 @@
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
             <ColumnDefinition Width="0.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="0.3*"></RowDefinition>
+        </Grid.RowDefinitions>
         <StackPanel Grid.Column="0" VerticalAlignment="Center">
             <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="Name" />
             <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="Description" />
@@ -18,12 +22,12 @@
             <TextBlock HorizontalAlignment="Right" Margin="0,5" Text="To" />
         </StackPanel>
         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="" />
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="" />
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="" />
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding tour_New.tour_Name}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding tour_New.tour_Description}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding tour_New.tour_From}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding tour_New.tour_To}" />
         </StackPanel>
-
+        <Button Grid.Row="1" Grid.Column="1" Content="Add" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=AddFunc}"></Button>
 
     </Grid>
 </UserControl>
