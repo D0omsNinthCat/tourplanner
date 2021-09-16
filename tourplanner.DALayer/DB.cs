@@ -63,6 +63,8 @@ namespace tourplanner.DALayer
                         t.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
                         t.tour_Name = (DBNull.Value == reader["tour_Name"]) ? string.Empty : (string)reader["tour_Name"];
                         t.tour_Description = (DBNull.Value == reader["tour_Description"]) ? string.Empty : (string)reader["tour_Description"];
+                        t.tour_From = (DBNull.Value == reader["tour_From"]) ? string.Empty : (string)reader["tour_From"];
+                        t.tour_To = (DBNull.Value == reader["tour_To"]) ? string.Empty : (string)reader["tour_To"];
                         t.tour_Distance = (DBNull.Value == reader["tour_Distance"]) ? 0 : (double)reader["tour_Distance"];
                         tours.Add(t);
                     }
@@ -83,9 +85,9 @@ namespace tourplanner.DALayer
             {
                 //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
                 connection.Open();
-                using (var cmd = new NpgsqlCommand("DELETE FROM tours WHERE \"tour_ID\" = (@p)", connection))
+                using (var cmd = new NpgsqlCommand("DELETE FROM tours WHERE \"tour_ID\" = (@i)", connection))
                 {
-                    cmd.Parameters.AddWithValue("p", t.tour_ID);
+                    cmd.Parameters.AddWithValue("i", t.tour_ID);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
@@ -100,10 +102,12 @@ namespace tourplanner.DALayer
             try
             {
                 connection.Open();
-                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@p), \"tour_Description\"=(@o)", connection))
+                using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t)", connection))
                 {
-                    cmd.Parameters.AddWithValue("p", t.tour_Name);
-                    cmd.Parameters.AddWithValue("o", t.tour_Description);
+                    cmd.Parameters.AddWithValue("n", t.tour_Name);
+                    cmd.Parameters.AddWithValue("d", t.tour_Description);
+                    cmd.Parameters.AddWithValue("f", t.tour_From);
+                    cmd.Parameters.AddWithValue("t", t.tour_To);
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();

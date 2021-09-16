@@ -25,8 +25,8 @@
         <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center">
             <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5"  Text="{Binding selected_Tour.tour_Name}" />
             <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding selected_Tour.tour_Description}" />
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="Wien" />
-            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="Berlin" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding selected_Tour.tour_From}" />
+            <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding selected_Tour.tour_To}" />
             <TextBlock HorizontalAlignment="Stretch" TextAlignment="Left" Margin="10, 5,30,5" Text="{Binding selected_Tour.tour_Distance}" />
             
         </StackPanel>

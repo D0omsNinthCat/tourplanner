@@ -14,10 +14,6 @@ namespace tourplanner.Viewmodels
         public ICommand _editFunc;
         private DAO dataAccessObject { get; set; }
         private RelayCommand RelayCommand { get; set; }
-        //public string tour_Name { get; set; }
-        //public string tour_Description { get; set; }
-        //public string tour_From { get; set; }
-        //public string To { get; set; }
         public ICommand EditFunc
         {
             get
