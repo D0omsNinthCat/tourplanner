@@ -24,7 +24,6 @@ namespace tourplanner.Viewmodels
         public Tour selected_Tour { get; set; }
         private DAO dataAccessObject { get; set; }
         public ObservableCollection<Tour> tour_List { get; set; }
-        public string dummy_List { get; set; }
         public ICommand DetCommand { get; set; }
         public ICommand OptCommand { get; set; }
         public ICommand AddCommand { get; set; }
@@ -35,7 +34,15 @@ namespace tourplanner.Viewmodels
         public void GetTours()
         {
             dataAccessObject = new DAO();
-            tour_List = new ObservableCollection<Tour>(dataAccessObject.GetTourList());
+            Tour_List= new ObservableCollection<Tour>();
+            if (Tour_List != null)
+            {
+                this.Tour_List.Clear();
+            }
+            foreach(Tour t in dataAccessObject.GetTourList())
+            {
+                Tour_List.Add(t);
+            }
         }
 
         public ObservableCollection<Tour> Tour_List

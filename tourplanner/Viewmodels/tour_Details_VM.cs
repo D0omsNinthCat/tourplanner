@@ -10,7 +10,8 @@ namespace tourplanner.Viewmodels
 {
     class tour_Details_VM : base_VM
     {
-        public Tour selected_Tour { get; set; }
+        public Tour selected_Tour { get; set; } //Zwischenspeichern falls verändert aber nicht Edited wird
+
         public ICommand _editFunc;
         private DAO dataAccessObject { get; set; }
         private RelayCommand RelayCommand { get; set; }
@@ -39,7 +40,8 @@ namespace tourplanner.Viewmodels
         {
             dataAccessObject = new DAO();
             dataAccessObject.EditTour(selected_Tour);
-            SelectedViewModel = new main_Window_VM();
+            //Not sure what this is doing. How do I change back to "no User Control"?
+            SelectedViewModel = new main_Window_VM(); 
         }
     }
 }
