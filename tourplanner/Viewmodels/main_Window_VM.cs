@@ -19,6 +19,7 @@ namespace tourplanner.Viewmodels
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
             DelCommand = new BaseCommand(OpenDel);
+            LogCommand = new BaseCommand(OpenLog);
             GetTours();
         }
         public Tour selected_Tour { get; set; }
@@ -28,6 +29,7 @@ namespace tourplanner.Viewmodels
         public ICommand OptCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand DelCommand { get; set; }
+        public ICommand LogCommand { get; set; }
 
 
 
@@ -115,6 +117,10 @@ namespace tourplanner.Viewmodels
             tour_List.Remove(selected_Tour);
             selected_Tour = tour_List[0];
             
+        }
+        private void OpenLog(object obj)
+        {
+            SelectedViewModel = new logs_VM(selected_Tour);
         }
 
         public class BaseCommand : ICommand

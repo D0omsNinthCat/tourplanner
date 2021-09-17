@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Net;
 using System.Drawing;
+using System.Collections.ObjectModel;
 
 namespace tourplanner.DALayer
 {
@@ -22,6 +23,7 @@ namespace tourplanner.DALayer
         private string connectionstring = ConfigurationManager.AppSettings.Get("connectionstring");
         private string APIkey = ConfigurationManager.AppSettings.Get("apikey");
         private string filePath = ConfigurationManager.AppSettings.Get("filepath");
+        public ObservableCollection<Log> logs { get; set; }
 
         private DB()
         {
@@ -78,6 +80,7 @@ namespace tourplanner.DALayer
                         tours.Add(t);
                     }
                     connection.Close();
+                    tours = GetLogs(tours);
                     return tours;
                 }
             }
@@ -176,6 +179,53 @@ namespace tourplanner.DALayer
             }
 
             return await Task.FromResult(t);
+        }
+        public List<Tour> GetLogs(List<Tour> tours)
+        {
+            try
+            {
+                string sql_command = "SELECT * FROM logs";
+                NpgsqlCommand command = new NpgsqlCommand(sql_command, connection);
+                connection.Open();
+                ObservableCollection<Log> logs = new ObservableCollection<Log>();
+
+                using (IDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Log l = new Log();
+                        l.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
+                        l.log_ID = (DBNull.Value == reader["log_ID"]) ? 0 : (int)reader["log_ID"];
+                        l.log_Date = (DBNull.Value == reader["log_Date"]) ? string.Empty : reader["log_Date"].ToString();
+                        l.log_Duration = (DBNull.Value == reader["log_Duration"]) ? 0 : (int)reader["log_Duration"];
+                        l.log_Distance = (DBNull.Value == reader["log_Distance"]) ? 0 : (double)reader["log_Distance"];
+                        l.log_Rating = (DBNull.Value == reader["log_Rating"]) ? 0 : (int)reader["log_Rating"];
+                        l.log_Report = (DBNull.Value == reader["log_Report"]) ? string.Empty : reader["log_Report"].ToString();
+
+
+                       
+                        logs.Add(l);
+                    }
+                    connection.Close();
+
+                    foreach(Tour t in tours)
+                    {
+                        t.Logs = new ObservableCollection<Log>();
+                        foreach (Log l in logs)
+                        {
+                            if(l.tour_ID == t.tour_ID)
+                            {
+                                t.Logs.Add(l);
+                            }
+                        }
+                    }
+                    return tours;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         
     }
