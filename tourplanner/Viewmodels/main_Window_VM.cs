@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tourplanner.Models;
 using System.Windows.Input;
 using tourplanner.DALayer;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace tourplanner.Viewmodels
 {
@@ -33,7 +34,12 @@ namespace tourplanner.Viewmodels
         public ICommand LogCommand { get; set; }
         public ICommand AddLCommand { get; set; }
 
-
+        public object selectedViewModel;
+        public object SelectedViewModel
+        {
+            get { return selectedViewModel; }
+            set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
+        }
 
         public void GetTours()
         {
@@ -114,6 +120,8 @@ namespace tourplanner.Viewmodels
         {
             SelectedViewModel = new add_Log_VM(selected_Tour);
         }
+        
+        
 
         public class BaseCommand : ICommand
         {

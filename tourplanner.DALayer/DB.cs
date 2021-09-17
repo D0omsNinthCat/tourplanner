@@ -284,6 +284,64 @@ namespace tourplanner.DALayer
             }
 
         }
-        
+        public  void EditLog(Log l)
+        {
+            l = CalculateLog(l);
+            try
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE logs SET \"log_Date\" = (@dat), " +
+                    "\"log_Duration\" = (@dur), " +
+                    "\"log_Distance\" = (@dis), " +
+                    "\"log_Rating\" = (@rat), " +
+                    "\"log_Report\" = (@rep), " +
+                    "\"tour_ID\" = (@id), " +
+                    "\"log_Author\" = (@aut), " +
+                    "\"log_Speed\" = (@spe), " +
+                    "\"log_Transport\" = (@tra), " +
+                    "\"log_Name\" = (@nam), " +
+                    "\"log_Energy\" = (@ene) WHERE \"log_ID\"=(@i)"
+                    , connection)) 
+                {
+                    cmd.Parameters.AddWithValue("dat", l.log_Date);
+                    cmd.Parameters.AddWithValue("dur", l.log_Duration);
+                    cmd.Parameters.AddWithValue("dis", l.log_Distance);
+                    cmd.Parameters.AddWithValue("rat", l.log_Rating);
+                    cmd.Parameters.AddWithValue("rep", l.log_Report);
+                    cmd.Parameters.AddWithValue("id", l.tour_ID);
+                    cmd.Parameters.AddWithValue("aut", l.log_Author);
+                    cmd.Parameters.AddWithValue("spe", l.log_Speed);
+                    cmd.Parameters.AddWithValue("tra", l.log_Transport);
+                    cmd.Parameters.AddWithValue("nam", l.log_Name);
+                    cmd.Parameters.AddWithValue("ene", l.log_Energy);
+                    cmd.Parameters.AddWithValue("i", l.log_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void DeleteLog(Log l)
+        {
+            try
+            {
+                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("DELETE FROM logs WHERE \"log_ID\" = (@i)", connection))
+                {
+                    cmd.Parameters.AddWithValue("i", l.log_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

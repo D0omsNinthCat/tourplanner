@@ -16,6 +16,8 @@ namespace tourplanner.DALayer
         public List<Tour> GetLogs(List<Tour> tours);
         public Log CalculateLog(Log l);
         public void AddLog(Log l);
+        public void EditLog(Log l);
+        public void DeleteLog(Log l);
 
     }
 }
