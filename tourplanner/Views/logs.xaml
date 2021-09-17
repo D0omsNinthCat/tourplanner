@@ -17,11 +17,16 @@
         </Grid.ColumnDefinitions>
         <ListView Grid.Row="0" Grid.Column="0" DisplayMemberPath="log_Date" SelectedItem="{Binding Selected_Log}" SelectedIndex="0" ItemsSource="{Binding selected_Tour.Logs}"></ListView>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" >
-            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Report}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Name}"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Date}"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Duration}"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Distance}"></TextBlock>
             <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Rating}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Report}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Speed}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Transport}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Author}"></TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Energy}"></TextBlock>
         </StackPanel>
 
     </Grid>

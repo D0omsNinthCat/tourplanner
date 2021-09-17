@@ -18,9 +18,8 @@ namespace tourplanner.Models
         public int tour_ID { get; set; }
         public string log_Author { get; set; }
         public double log_Speed { get; set; }
-        public string log_Start { get; set; }
-        public string log_End { get; set; }
-        public TransportEnum log_transport { get; set; }
+        public double log_Energy { get; set; }
+        public string log_Transport { get; set; }
 
     }
 }

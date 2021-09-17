@@ -86,7 +86,7 @@ namespace tourplanner.DALayer
             }
             catch(Exception)
             {
-                return new List<Tour>();
+                //return new List<Tour>();
                 throw;
                 //SAY SOMETHING
             }
@@ -201,14 +201,16 @@ namespace tourplanner.DALayer
                         l.log_Distance = (DBNull.Value == reader["log_Distance"]) ? 0 : (double)reader["log_Distance"];
                         l.log_Rating = (DBNull.Value == reader["log_Rating"]) ? 0 : (int)reader["log_Rating"];
                         l.log_Report = (DBNull.Value == reader["log_Report"]) ? string.Empty : reader["log_Report"].ToString();
+                        l.log_Author = (DBNull.Value == reader["log_Author"]) ? string.Empty : reader["log_Author"].ToString();
+                        l.log_Speed = (DBNull.Value == reader["log_Speed"]) ? 0 : (double)reader["log_Speed"];
+                        l.log_Energy = (DBNull.Value == reader["log_Energy"]) ? 0 : (double)reader["log_Energy"];
+                        l.log_Name = (DBNull.Value == reader["log_Name"]) ? string.Empty : reader["log_Name"].ToString();
+                        l.log_Transport = (DBNull.Value == reader["log_Transport"]) ? string.Empty : reader["log_Transport"].ToString(); ;
 
-
-                       
                         logs.Add(l);
                     }
                     connection.Close();
-
-                    foreach(Tour t in tours)
+                    foreach (Tour t in tours)
                     {
                         t.Logs = new ObservableCollection<Log>();
                         foreach (Log l in logs)
@@ -226,6 +228,19 @@ namespace tourplanner.DALayer
             {
                 throw;
             }
+        }
+        public Log CalculateLog(Log l)
+        {
+            l.log_Speed = l.log_Distance / (l.log_Duration / 60);
+            if(l.log_Transport == "Bicycle" | l.log_Transport == "Walk")
+            {
+                l.log_Energy = 75000 * ((l.log_Distance / 1000) / (l.log_Duration / 60));
+            }
+            else
+            {
+                l.log_Energy = 0;
+            }
+            return l;
         }
         
     }
