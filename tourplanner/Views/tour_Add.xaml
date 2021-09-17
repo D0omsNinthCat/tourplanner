@@ -28,6 +28,5 @@
             <TextBox HorizontalAlignment="Stretch" Margin="10,5,30,5" Text="{Binding tour_New.tour_To}" />
         </StackPanel>
         <Button Grid.Row="1" Grid.Column="1" Content="Add" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=AddFunc}"></Button>
-
     </Grid>
 </UserControl>

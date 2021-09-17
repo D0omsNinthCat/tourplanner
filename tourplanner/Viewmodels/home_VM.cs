@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using tourplanner.DALayer;
 using tourplanner.Models;
 
 namespace tourplanner.Viewmodels
@@ -29,5 +31,12 @@ namespace tourplanner.Viewmodels
                 imageBitmap.EndInit();
             }
         }
+        private bool CanExecute()
+        {
+            //ADD CONDITIONS
+            return true;
+        }
+        
+        
     }
 }

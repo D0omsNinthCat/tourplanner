@@ -10,7 +10,7 @@ namespace tourplanner.Models
     {
         public int log_ID { get; set; }
         public string log_Name { get; set; }
-        public string log_Date { get; set; }
+        public DateTime log_Date { get; set; }
         public int log_Duration { get; set; }
         public double log_Distance { get; set; }
         public int log_Rating { get; set; }

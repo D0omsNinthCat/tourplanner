@@ -15,6 +15,7 @@ namespace tourplanner.DALayer
         public Task<Tour> GetAPI(Tour t);
         public List<Tour> GetLogs(List<Tour> tours);
         public Log CalculateLog(Log l);
+        public void AddLog(Log l);
 
     }
 }

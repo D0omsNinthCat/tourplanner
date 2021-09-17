@@ -196,7 +196,7 @@ namespace tourplanner.DALayer
                         Log l = new Log();
                         l.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
                         l.log_ID = (DBNull.Value == reader["log_ID"]) ? 0 : (int)reader["log_ID"];
-                        l.log_Date = (DBNull.Value == reader["log_Date"]) ? string.Empty : reader["log_Date"].ToString();
+                        l.log_Date = (DBNull.Value == reader["log_Date"]) ? default : (DateTime)reader["log_Date"];
                         l.log_Duration = (DBNull.Value == reader["log_Duration"]) ? 0 : (int)reader["log_Duration"];
                         l.log_Distance = (DBNull.Value == reader["log_Distance"]) ? 0 : (double)reader["log_Distance"];
                         l.log_Rating = (DBNull.Value == reader["log_Rating"]) ? 0 : (int)reader["log_Rating"];
@@ -241,6 +241,48 @@ namespace tourplanner.DALayer
                 l.log_Energy = 0;
             }
             return l;
+        }
+
+        public void AddLog(Log l)
+        {
+            l = CalculateLog(l);
+            try
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO logs (" +
+                    "\"log_Date\", " +
+                    "\"log_Duration\", " +
+                    "\"log_Distance\", " +
+                    "\"log_Rating\", " +
+                    "\"log_Report\", " +
+                    "\"tour_ID\", " +
+                    "\"log_Author\", " +
+                    "\"log_Speed\", " +
+                    "\"log_Transport\", " +
+                    "\"log_Name\", " +
+                    "\"log_Energy\") VALUES ((@dat),(@dur),(@dis),(@rat),(@rep),(@id),(@aut),(@spe),(@tra),(@nam),(@ene));", connection))
+                {
+                    cmd.Parameters.AddWithValue("dat", l.log_Date);
+                    cmd.Parameters.AddWithValue("dur", l.log_Duration);
+                    cmd.Parameters.AddWithValue("dis", l.log_Distance);
+                    cmd.Parameters.AddWithValue("rat", l.log_Rating);
+                    cmd.Parameters.AddWithValue("rep", l.log_Report);
+                    cmd.Parameters.AddWithValue("id", l.tour_ID);
+                    cmd.Parameters.AddWithValue("aut", l.log_Author);
+                    cmd.Parameters.AddWithValue("spe", l.log_Speed);
+                    cmd.Parameters.AddWithValue("tra", l.log_Transport);
+                    cmd.Parameters.AddWithValue("nam", l.log_Name);
+                    cmd.Parameters.AddWithValue("ene", l.log_Energy);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
         
     }
