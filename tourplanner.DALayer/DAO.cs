@@ -30,5 +30,17 @@ namespace tourplanner.DALayer
         {
             dataAccessObject.AddTour(t);
         }
+        public void AddLog(Log l)
+        {
+            dataAccessObject.AddLog(l);
+        }
+        public void EditLog(Log l)
+        {
+            dataAccessObject.EditLog(l);
+        }
+        public void DeleteLog(Log l)
+        {
+            dataAccessObject.DeleteLog(l);
+        }
     }
 }

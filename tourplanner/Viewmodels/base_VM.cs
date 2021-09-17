@@ -11,7 +11,7 @@ namespace tourplanner.Viewmodels
 
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        private object selectedViewModel;
+        
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -24,10 +24,6 @@ namespace tourplanner.Viewmodels
             this.OnPropertyChanged(propertyName);
             return true;
         }
-        public object SelectedViewModel
-        {
-            get { return selectedViewModel; }
-            set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
-        }
+        
     }
 }

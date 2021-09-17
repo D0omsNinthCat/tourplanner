@@ -51,7 +51,7 @@ namespace tourplanner.Viewmodels
         {
             dataAccessObject = new DAO();
             dataAccessObject.AddTour(tour_New);
-            SelectedViewModel = new main_Window_VM();
+            //SelectedViewModel = new main_Window_VM();
         }
     }
 }

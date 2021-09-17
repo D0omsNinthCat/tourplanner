@@ -86,7 +86,7 @@ namespace tourplanner.DALayer
             }
             catch(Exception)
             {
-                return new List<Tour>();
+                //return new List<Tour>();
                 throw;
                 //SAY SOMETHING
             }
@@ -196,19 +196,21 @@ namespace tourplanner.DALayer
                         Log l = new Log();
                         l.tour_ID = (DBNull.Value == reader["tour_ID"]) ? 0 : (int)reader["tour_ID"];
                         l.log_ID = (DBNull.Value == reader["log_ID"]) ? 0 : (int)reader["log_ID"];
-                        l.log_Date = (DBNull.Value == reader["log_Date"]) ? string.Empty : reader["log_Date"].ToString();
+                        l.log_Date = (DBNull.Value == reader["log_Date"]) ? default : (DateTime)reader["log_Date"];
                         l.log_Duration = (DBNull.Value == reader["log_Duration"]) ? 0 : (int)reader["log_Duration"];
                         l.log_Distance = (DBNull.Value == reader["log_Distance"]) ? 0 : (double)reader["log_Distance"];
                         l.log_Rating = (DBNull.Value == reader["log_Rating"]) ? 0 : (int)reader["log_Rating"];
                         l.log_Report = (DBNull.Value == reader["log_Report"]) ? string.Empty : reader["log_Report"].ToString();
+                        l.log_Author = (DBNull.Value == reader["log_Author"]) ? string.Empty : reader["log_Author"].ToString();
+                        l.log_Speed = (DBNull.Value == reader["log_Speed"]) ? 0 : (double)reader["log_Speed"];
+                        l.log_Energy = (DBNull.Value == reader["log_Energy"]) ? 0 : (double)reader["log_Energy"];
+                        l.log_Name = (DBNull.Value == reader["log_Name"]) ? string.Empty : reader["log_Name"].ToString();
+                        l.log_Transport = (DBNull.Value == reader["log_Transport"]) ? string.Empty : reader["log_Transport"].ToString(); ;
 
-
-                       
                         logs.Add(l);
                     }
                     connection.Close();
-
-                    foreach(Tour t in tours)
+                    foreach (Tour t in tours)
                     {
                         t.Logs = new ObservableCollection<Log>();
                         foreach (Log l in logs)
@@ -227,6 +229,119 @@ namespace tourplanner.DALayer
                 throw;
             }
         }
-        
+        public Log CalculateLog(Log l)
+        {
+            l.log_Speed = l.log_Distance / (l.log_Duration / 60);
+            if(l.log_Transport == "Bicycle" | l.log_Transport == "Walk")
+            {
+                l.log_Energy = 75000 * ((l.log_Distance / 1000) / (l.log_Duration / 60));
+            }
+            else
+            {
+                l.log_Energy = 0;
+            }
+            return l;
+        }
+
+        public void AddLog(Log l)
+        {
+            l = CalculateLog(l);
+            try
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("INSERT INTO logs (" +
+                    "\"log_Date\", " +
+                    "\"log_Duration\", " +
+                    "\"log_Distance\", " +
+                    "\"log_Rating\", " +
+                    "\"log_Report\", " +
+                    "\"tour_ID\", " +
+                    "\"log_Author\", " +
+                    "\"log_Speed\", " +
+                    "\"log_Transport\", " +
+                    "\"log_Name\", " +
+                    "\"log_Energy\") VALUES ((@dat),(@dur),(@dis),(@rat),(@rep),(@id),(@aut),(@spe),(@tra),(@nam),(@ene));", connection))
+                {
+                    cmd.Parameters.AddWithValue("dat", l.log_Date);
+                    cmd.Parameters.AddWithValue("dur", l.log_Duration);
+                    cmd.Parameters.AddWithValue("dis", l.log_Distance);
+                    cmd.Parameters.AddWithValue("rat", l.log_Rating);
+                    cmd.Parameters.AddWithValue("rep", l.log_Report);
+                    cmd.Parameters.AddWithValue("id", l.tour_ID);
+                    cmd.Parameters.AddWithValue("aut", l.log_Author);
+                    cmd.Parameters.AddWithValue("spe", l.log_Speed);
+                    cmd.Parameters.AddWithValue("tra", l.log_Transport);
+                    cmd.Parameters.AddWithValue("nam", l.log_Name);
+                    cmd.Parameters.AddWithValue("ene", l.log_Energy);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+        public  void EditLog(Log l)
+        {
+            l = CalculateLog(l);
+            try
+            {
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("UPDATE logs SET \"log_Date\" = (@dat), " +
+                    "\"log_Duration\" = (@dur), " +
+                    "\"log_Distance\" = (@dis), " +
+                    "\"log_Rating\" = (@rat), " +
+                    "\"log_Report\" = (@rep), " +
+                    "\"tour_ID\" = (@id), " +
+                    "\"log_Author\" = (@aut), " +
+                    "\"log_Speed\" = (@spe), " +
+                    "\"log_Transport\" = (@tra), " +
+                    "\"log_Name\" = (@nam), " +
+                    "\"log_Energy\" = (@ene) WHERE \"log_ID\"=(@i)"
+                    , connection)) 
+                {
+                    cmd.Parameters.AddWithValue("dat", l.log_Date);
+                    cmd.Parameters.AddWithValue("dur", l.log_Duration);
+                    cmd.Parameters.AddWithValue("dis", l.log_Distance);
+                    cmd.Parameters.AddWithValue("rat", l.log_Rating);
+                    cmd.Parameters.AddWithValue("rep", l.log_Report);
+                    cmd.Parameters.AddWithValue("id", l.tour_ID);
+                    cmd.Parameters.AddWithValue("aut", l.log_Author);
+                    cmd.Parameters.AddWithValue("spe", l.log_Speed);
+                    cmd.Parameters.AddWithValue("tra", l.log_Transport);
+                    cmd.Parameters.AddWithValue("nam", l.log_Name);
+                    cmd.Parameters.AddWithValue("ene", l.log_Energy);
+                    cmd.Parameters.AddWithValue("i", l.log_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public void DeleteLog(Log l)
+        {
+            try
+            {
+                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                connection.Open();
+                using (var cmd = new NpgsqlCommand("DELETE FROM logs WHERE \"log_ID\" = (@i)", connection))
+                {
+                    cmd.Parameters.AddWithValue("i", l.log_ID);
+                    cmd.ExecuteNonQuery();
+                }
+                connection.Close();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }

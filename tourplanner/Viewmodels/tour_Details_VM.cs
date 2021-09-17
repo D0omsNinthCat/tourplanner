@@ -53,14 +53,14 @@ namespace tourplanner.Viewmodels
             dataAccessObject = new DAO();
             dataAccessObject.EditTour(selected_Tour);
             //Not sure what this is doing. How do I change back to "no User Control"?
-            SelectedViewModel = new main_Window_VM(); 
+            //SelectedViewModel = new main_Window_VM(); 
         }
         private void CopyTour()
         {
             dataAccessObject = new DAO();
             dataAccessObject.AddTour(selected_Tour);
             //Not sure what this is doing. How do I change back to "no User Control"?
-            SelectedViewModel = new main_Window_VM();
+            //SelectedViewModel = new main_Window_VM();
         }
     }
 }

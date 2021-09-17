@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tourplanner.Models;
 using System.Windows.Input;
 using tourplanner.DALayer;
+using Microsoft.Xaml.Behaviors.Core;
 
 namespace tourplanner.Viewmodels
 {
@@ -20,6 +21,7 @@ namespace tourplanner.Viewmodels
             AddCommand = new BaseCommand(OpenAdd);
             DelCommand = new BaseCommand(OpenDel);
             LogCommand = new BaseCommand(OpenLog);
+            AddLCommand = new BaseCommand(OpenAddLog);
             GetTours();
         }
         public Tour selected_Tour { get; set; }
@@ -30,8 +32,14 @@ namespace tourplanner.Viewmodels
         public ICommand AddCommand { get; set; }
         public ICommand DelCommand { get; set; }
         public ICommand LogCommand { get; set; }
+        public ICommand AddLCommand { get; set; }
 
-
+        public object selectedViewModel;
+        public object SelectedViewModel
+        {
+            get { return selectedViewModel; }
+            set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
+        }
 
         public void GetTours()
         {
@@ -74,25 +82,11 @@ namespace tourplanner.Viewmodels
                 }
             }
         }
-        //public string Dummy_List
-        //{
-        //    get { return dummy_List; }
-        //    set
-        //    {
-        //        if ((value != null) && (dummy_List != value))
-        //        {
-        //            dummy_List = value;
-        //            OnPropertyChanged(nameof(dummy_List));
-        //        }
-        //    }
-        //}
-
 
 
         //source: https://social.technet.microsoft.com/wiki/contents/articles/30898.simple-navigation-technique-in-wpf-using-mvvm.aspx
 
         //Navigation Handeling
-
 
         private void OpenDet(object obj)
         {
@@ -122,6 +116,12 @@ namespace tourplanner.Viewmodels
         {
             SelectedViewModel = new logs_VM(selected_Tour);
         }
+        private void OpenAddLog(object obj)
+        {
+            SelectedViewModel = new add_Log_VM(selected_Tour);
+        }
+        
+        
 
         public class BaseCommand : ICommand
         {
