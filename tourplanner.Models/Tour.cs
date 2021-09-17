@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.ObjectModel;
+
 namespace tourplanner.Models
 {
     public class Tour
@@ -10,5 +12,6 @@ namespace tourplanner.Models
         public string tour_From { get; set; }
         public string tour_To { get; set; }
         public string tour_Map { get; set; }
+        public ObservableCollection<Log> Logs { get; set; }
     }
 }
