@@ -272,9 +272,15 @@ namespace tourplanner.DALayer
                     l.log_Energy = 75000 * ((l.log_Distance / 1000) / (l.log_Duration / 60));
                 }
                 //ADD FUEL THINGY HERE
-                else
+                else if(l.log_Transport == "Car")
                 {
-                    l.log_Energy = 0;
+                    l.log_Energy = l.log_Distance * 0.094; 
+                    //The average fuel economy for new 2017 model year cars, light trucks and SUVs in the United States was 24.9 mpgUS (9.4 L/100 km).
+                    }
+                else if (l.log_Transport == "Motorbike")
+                {
+                    l.log_Energy = l.log_Distance * 0.044;
+                    //The motorcycles use between 2,8 and 5,7 litres fuel per 100 kilometres with an average of 4,4 l/100km.
                 }
                 return l;
             }

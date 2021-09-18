@@ -13,16 +13,35 @@
             <RowDefinition Height="0.2*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
+            <ColumnDefinition Width="0.2*"></ColumnDefinition>
             <ColumnDefinition Width="0.6*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView Grid.Row="0" Grid.Column="0" DisplayMemberPath="log_Date" SelectedItem="{Binding Selected_Log}" SelectedIndex="0" ItemsSource="{Binding selected_Tour.Logs}"></ListView>
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" >
-            <TextBox Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Name}"></TextBox>
-            <DatePicker Grid.Row="0" Grid.Column="1" DisplayDate="{Binding Selected_Log.log_Date}" SelectedDate="{Binding Selected_Log.log_Date}"></DatePicker>
-            <TextBox Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Duration}"></TextBox>
-            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Distance}"></TextBlock>
-            <ComboBox Grid.Row="0" Grid.Column="1" SelectedItem="{Binding Selected_Log.log_Rating}">
+        <ListView Grid.Row="0" Grid.Column="0" SelectedItem="{Binding Selected_Log}" SelectedIndex="0" ItemsSource="{Binding selected_Tour.Logs}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Path=.log_Name}" TextWrapping="Wrap"></TextBlock>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Orientation="Vertical">
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,3" Text="Name: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,3" Text="Date: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,1" Text="min: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,3" Text="km: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,3" Text="Rating /5: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,3" Text="Report: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,6" Text="Transportation: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,2" Text="km/h: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,1,0,1" Text="Author: "></TextBlock>
+            <TextBlock HorizontalAlignment="Right" Margin="0,0,0,2" Text="Energy: "></TextBlock>
+        </StackPanel>
+        <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0,0" Orientation="Vertical" >
+            <TextBox  TextWrapping="Wrap" Text="{Binding Selected_Log.log_Name}"></TextBox>
+            <DatePicker DisplayDate="{Binding Selected_Log.log_Date}" SelectedDate="{Binding Selected_Log.log_Date}"></DatePicker>
+            <TextBox TextWrapping="Wrap" Text="{Binding Selected_Log.log_Duration}"></TextBox>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Selected_Log.log_Distance}"></TextBlock>
+            <ComboBox SelectedItem="{Binding Selected_Log.log_Rating}">
                 <ComboBox.ItemsSource>
                     <x:Array Type="{x:Type sys:Int32}">
                         <sys:Int32>1</sys:Int32>
@@ -33,16 +52,23 @@
                     </x:Array>
                 </ComboBox.ItemsSource>
             </ComboBox>
-            <TextBox Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Report}"></TextBox>
+            <TextBox TextWrapping="Wrap" Text="{Binding Selected_Log.log_Report}"></TextBox>
             <ComboBox HorizontalAlignment="Stretch" Margin="10,3,30,3" SelectedValuePath="Content" SelectedItem="{Binding Selected_Log.log_Transport}" SelectedValue="{Binding Selected_Log.log_Transport}">
                 <ComboBoxItem Content="Walk"></ComboBoxItem>
                 <ComboBoxItem Content="Bicycle"></ComboBoxItem>
                 <ComboBoxItem Content="Motorbike"></ComboBoxItem>
                 <ComboBoxItem Content="Car"></ComboBoxItem>
             </ComboBox>
-            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Speed}"></TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Author}"></TextBox>
-            <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Selected_Log.log_Energy}"></TextBlock>
+            <TextBlock TextWrapping="Wrap" Text="{Binding Selected_Log.log_Speed}"></TextBlock>
+            <TextBox TextWrapping="Wrap" Text="{Binding Selected_Log.log_Author}"></TextBox>
+            <TextBlock TextWrapping="Wrap">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Path="Selected_Log.log_Energy" />
+                        <Binding Path="unit" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
         </StackPanel>
         <Button Grid.Row="1" Grid.Column="1" Content="Edit" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=EditFunc}"></Button>
         <Button Grid.Row="1" Grid.Column="0" Content="Delete" VerticalAlignment="Center" HorizontalAlignment="Center" Height="40" Width="100" Command="{Binding Path=DeleteFunc}"></Button>

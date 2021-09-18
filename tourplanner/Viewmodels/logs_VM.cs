@@ -15,6 +15,7 @@ namespace tourplanner.Viewmodels
         public Log selected_Log { get; set; }
         public ICommand _editFunc;
         public ICommand _deleteFunc;
+        public string unit { get; set; }
         private DAO dataAccessObject { get; set; }
 
         public logs_VM(Tour selected_Tour){
@@ -62,7 +63,8 @@ namespace tourplanner.Viewmodels
 
         public Log Selected_Log
         {
-            get { return selected_Log; }
+            get { 
+                return selected_Log; }
             set
             {
                 if ((value != null) && (selected_Log != value))
@@ -70,6 +72,7 @@ namespace tourplanner.Viewmodels
                     selected_Log = value;
                     OnPropertyChanged(nameof(selected_Log));
                 }
+                
             }
         }
 
