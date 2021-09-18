@@ -13,9 +13,10 @@ namespace tourplanner.Viewmodels
 {
     public class main_Window_VM : base_VM
     {
-
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public main_Window_VM()
         {
+            log.Info("Initiating Main View");
             DetCommand = new BaseCommand(OpenDet);
             OptCommand = new BaseCommand(OpenOpt);
             AddCommand = new BaseCommand(OpenAdd);
@@ -43,6 +44,7 @@ namespace tourplanner.Viewmodels
 
         public void GetTours()
         {
+            log.Info("Trying to refresh Tourlist to no avail :(");
             dataAccessObject = new DAO();
             Tour_List= new ObservableCollection<Tour>();
             if (Tour_List != null)
@@ -90,7 +92,8 @@ namespace tourplanner.Viewmodels
 
         private void OpenDet(object obj)
         {
-            if(selected_Tour != null)
+            log.Info("Changing to Tour Detail view");
+            if (selected_Tour != null)
             {
                 SelectedViewModel = new tour_Details_VM(selected_Tour);
             }
@@ -98,10 +101,12 @@ namespace tourplanner.Viewmodels
         }
         private void OpenOpt(object obj)
         {
+            log.Info("Changing to Options view");
             SelectedViewModel = new options_VM();
         }
         private void OpenAdd(object obj)
         {
+            log.Info("Changing to Add Tour view");
             Tour t = new Tour();
             SelectedViewModel = new tour_Add_VM(t);
         }
@@ -114,10 +119,12 @@ namespace tourplanner.Viewmodels
         }
         private void OpenLog(object obj)
         {
+            log.Info("Changing to Log Details view");
             SelectedViewModel = new logs_VM(selected_Tour);
         }
         private void OpenAddLog(object obj)
         {
+            log.Info("Changing to AddLog view");
             SelectedViewModel = new add_Log_VM(selected_Tour);
         }
         

@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using tourplanner.Models;
 using Npgsql;
-using System.Configuration;
+
 using System.Data;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
@@ -13,6 +13,11 @@ using System.IO;
 using System.Net;
 using System.Drawing;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using log4net;
+using log4net.Appender;
+using log4net.Config;
+using log4net.Layout;
 
 namespace tourplanner.DALayer
 {
@@ -24,6 +29,7 @@ namespace tourplanner.DALayer
         private string APIkey = ConfigurationManager.AppSettings.Get("apikey");
         private string filePath = ConfigurationManager.AppSettings.Get("filepath");
         public ObservableCollection<Log> logs { get; set; }
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private DB()
         {
@@ -41,14 +47,18 @@ namespace tourplanner.DALayer
         {
             try
             {
+                log.Info("Trying to connect to Database");
                 database_instance = new DB();
                 database_instance.connectionstring = sth; //Rework later maybe
                 
                 return database_instance;
             }
-            catch(Exception)
+            catch(Exception x)
             {
-                throw;
+                //throw;
+                log.Info("Something went wrong while establishing the DB connection");
+                Console.WriteLine(x);
+                return null;
                 //SAY SOMETHING
             }
             
@@ -60,13 +70,16 @@ namespace tourplanner.DALayer
             {
                 string sql_command = "SELECT * FROM tours";
                 List<Tour> tours = new List<Tour>();
+                log.Info("creating npgsql command");
                 NpgsqlCommand command = new NpgsqlCommand(sql_command, connection);
+                log.Info("opening connection");
                 connection.Open();
                 //IDataReader reader = command.ExecuteReader();
 
                 
                 using (IDataReader reader = command.ExecuteReader())
                 {
+                    log.Info("reading tours");
                     while (reader.Read())
                     {
                         Tour t = new Tour();
@@ -84,10 +97,11 @@ namespace tourplanner.DALayer
                     return tours;
                 }
             }
-            catch(Exception)
+            catch(Exception x)
             {
-                //return new List<Tour>();
-                throw;
+                log.Info("Something went wrong while reading the Tours from the DB");
+                Console.WriteLine(x);
+                return null;
                 //SAY SOMETHING
             }
         }
@@ -95,18 +109,20 @@ namespace tourplanner.DALayer
         {
             try
             {
-                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                log.Info("opening connection");
                 connection.Open();
                 using (var cmd = new NpgsqlCommand("DELETE FROM tours WHERE \"tour_ID\" = (@i)", connection))
                 {
                     cmd.Parameters.AddWithValue("i", t.tour_ID);
+                    log.Info("Deleting Tour");
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while deleting the Tour");
+                Console.WriteLine(x);
             }
         }
         public async void EditTour(Tour t)
@@ -114,9 +130,11 @@ namespace tourplanner.DALayer
             t = await GetAPI(t);
             try
             {
+                log.Info("opening connection");
                 connection.Open();
                 using (var cmd = new NpgsqlCommand("UPDATE tours SET \"tour_Name\"=(@n), \"tour_Description\"=(@d), \"tour_From\"=(@f), \"tour_To\"=(@t), \"tour_Distance\"=(@k), \"tour_Map\"=(@m) WHERE \"tour_ID\"=(@i)", connection))
                 {
+                    log.Info("Editing Tour");
                     cmd.Parameters.AddWithValue("n", t.tour_Name);
                     cmd.Parameters.AddWithValue("d", t.tour_Description);
                     cmd.Parameters.AddWithValue("f", t.tour_From);
@@ -128,9 +146,10 @@ namespace tourplanner.DALayer
                 }
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while editing the Tour");
+                Console.WriteLine(x);
             }
         }
         public async void AddTour(Tour t)
@@ -152,17 +171,21 @@ namespace tourplanner.DALayer
                 connection.Close();
 
             }
-            catch(Exception)
+            catch(Exception x)
             {
-                throw;
+                log.Info("Something went wrong while adding the Tour");
+                Console.WriteLine(x);
             }
         }
         public async Task<Tour> GetAPI(Tour t)
         {
+            log.Info("creating new Client");
             HttpClient client = new HttpClient();
             try
             {
+                log.Info("Route info Request");
                 var result = await client.GetAsync(new Uri($"http://www.mapquestapi.com/directions/v2/route?key={APIkey}&from={t.tour_From}&to={t.tour_To}"));
+                log.Info("Route info Request received");
                 string result_s = await result.Content.ReadAsStringAsync();
                 JObject result_j = JObject.Parse(result_s);
                 t.tour_Distance = double.Parse(result_j["route"]["distance"].ToString());
@@ -170,12 +193,15 @@ namespace tourplanner.DALayer
                 t.tour_Map = $"{filePath}{t.tour_ID}.jpg";
                 using (WebClient client_w = new WebClient())
                 {
+                    log.Info("Map Data Request");
                     client_w.DownloadFile(new Uri($"https://www.mapquestapi.com/staticmap/v5/map?start={t.tour_From}&end={t.tour_To}&size=170,170&key={APIkey}"), $@"{t.tour_Map}");
+                    log.Info("Map Data Request received");
                 }
             }
-            catch(Exception)
+            catch(Exception x)
             {
-                throw;
+                log.Info("Something went wrong while getting API Data");
+                Console.WriteLine(x);
             }
 
             return await Task.FromResult(t);
@@ -184,13 +210,16 @@ namespace tourplanner.DALayer
         {
             try
             {
+                log.Info("Creating Npgsql command");
                 string sql_command = "SELECT * FROM logs";
                 NpgsqlCommand command = new NpgsqlCommand(sql_command, connection);
+                log.Info("Opening Connection");
                 connection.Open();
                 ObservableCollection<Log> logs = new ObservableCollection<Log>();
 
                 using (IDataReader reader = command.ExecuteReader())
                 {
+                    log.Info("Reading Logs");
                     while (reader.Read())
                     {
                         Log l = new Log();
@@ -210,6 +239,7 @@ namespace tourplanner.DALayer
                         logs.Add(l);
                     }
                     connection.Close();
+                    log.Info("Adding Logs to Tours");
                     foreach (Tour t in tours)
                     {
                         t.Logs = new ObservableCollection<Log>();
@@ -224,23 +254,38 @@ namespace tourplanner.DALayer
                     return tours;
                 }
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while getting Log List from DB");
+                Console.WriteLine(x);
+                return null;
             }
         }
         public Log CalculateLog(Log l)
         {
-            l.log_Speed = l.log_Distance / (l.log_Duration / 60);
-            if(l.log_Transport == "Bicycle" | l.log_Transport == "Walk")
+            log.Info("Calculating Energy consumption");
+            try
             {
-                l.log_Energy = 75000 * ((l.log_Distance / 1000) / (l.log_Duration / 60));
+                l.log_Speed = l.log_Distance / (l.log_Duration / 60);
+                if (l.log_Transport == "Bicycle" | l.log_Transport == "Walk")
+                {
+                    l.log_Energy = 75000 * ((l.log_Distance / 1000) / (l.log_Duration / 60));
+                }
+                //ADD FUEL THINGY HERE
+                else
+                {
+                    l.log_Energy = 0;
+                }
+                return l;
             }
-            else
+            catch (Exception x)
             {
+                log.Info("Something went wrong while calculating energy, resuming with 0");
+                Console.WriteLine(x);
                 l.log_Energy = 0;
+                return l;
             }
-            return l;
+            
         }
 
         public void AddLog(Log l)
@@ -248,6 +293,7 @@ namespace tourplanner.DALayer
             l = CalculateLog(l);
             try
             {
+                log.Info("Opening Connection");
                 connection.Open();
                 using (var cmd = new NpgsqlCommand("INSERT INTO logs (" +
                     "\"log_Date\", " +
@@ -273,22 +319,25 @@ namespace tourplanner.DALayer
                     cmd.Parameters.AddWithValue("tra", l.log_Transport);
                     cmd.Parameters.AddWithValue("nam", l.log_Name);
                     cmd.Parameters.AddWithValue("ene", l.log_Energy);
+                    log.Info("Executing Add Log query");
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
 
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while adding Log to DB");
+                Console.WriteLine(x);
             }
 
         }
-        public  void EditLog(Log l)
+        public void EditLog(Log l)
         {
             l = CalculateLog(l);
             try
             {
+                log.Info("Opening Connection");
                 connection.Open();
                 using (var cmd = new NpgsqlCommand("UPDATE logs SET \"log_Date\" = (@dat), " +
                     "\"log_Duration\" = (@dur), " +
@@ -315,31 +364,35 @@ namespace tourplanner.DALayer
                     cmd.Parameters.AddWithValue("nam", l.log_Name);
                     cmd.Parameters.AddWithValue("ene", l.log_Energy);
                     cmd.Parameters.AddWithValue("i", l.log_ID);
+                    log.Info("Executing Edit Log Query");
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while editing Log");
+                Console.WriteLine(x);
             }
         }
         public void DeleteLog(Log l)
         {
             try
             {
-                //string sql_command = "DELETE FROM tours WHERE tour_ID = (@p)";
+                log.Info("Opening Connection");
                 connection.Open();
                 using (var cmd = new NpgsqlCommand("DELETE FROM logs WHERE \"log_ID\" = (@i)", connection))
                 {
                     cmd.Parameters.AddWithValue("i", l.log_ID);
+                    log.Info("Executing Delete Log Query");
                     cmd.ExecuteNonQuery();
                 }
                 connection.Close();
             }
-            catch (Exception)
+            catch (Exception x)
             {
-                throw;
+                log.Info("Something went wrong while deleting Log");
+                Console.WriteLine(x);
             }
         }
 

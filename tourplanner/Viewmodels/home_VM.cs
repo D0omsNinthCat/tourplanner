@@ -12,6 +12,7 @@ namespace tourplanner.Viewmodels
 {
     class home_VM : base_VM
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public Tour selected_Tour { get; set; }
         public Uri imageUri { get; set; }
         public BitmapImage imageBitmap { get; set; }
@@ -23,12 +24,13 @@ namespace tourplanner.Viewmodels
             //This prevented me from saving them images directly onto the objects
             if (selected_Tour.tour_Map != "")
             {
+                log.Info("trying to create BitmapImage");
                 imageUri = new Uri(selected_Tour.tour_Map, UriKind.Relative);
                 imageBitmap = new BitmapImage();
                 imageBitmap.BeginInit();
                 imageBitmap.CacheOption = BitmapCacheOption.OnLoad;
                 imageBitmap.UriSource = imageUri;
-                imageBitmap.EndInit();
+                imageBitmap.EndInit(); //Can't save this to Tours object :(
             }
         }
         private bool CanExecute()
