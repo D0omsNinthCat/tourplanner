@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 using tourplanner.Models;
 using Npgsql;
-
 using System.Data;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;

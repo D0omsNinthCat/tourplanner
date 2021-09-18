@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System.Configuration;
+using tourplanner;
 
 namespace tourplanner.UnitTest
 {
@@ -12,7 +13,6 @@ namespace tourplanner.UnitTest
         [SetUp]
         public void SetUp()
         {
-            
         }
 
         [Test]
