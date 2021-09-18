@@ -4,11 +4,15 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
+using log4net;
+using log4net.Appender;
+using log4net.Config;
+using log4net.Layout;
 
 namespace tourplanner.Viewmodels
 {
     public class base_VM : INotifyPropertyChanged
-
     {
         public event PropertyChangedEventHandler PropertyChanged;
         
