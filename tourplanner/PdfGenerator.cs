@@ -10,6 +10,7 @@ using iText.Layout;
 using iText.Kernel.Pdf;
 using iText.Layout.Element;
 using iText.Layout.Properties;
+using System.Collections.ObjectModel;
 
 namespace tourplanner
 {
@@ -29,7 +30,7 @@ namespace tourplanner
             document.Add(header);
             document.Close();
         }
-        public void CreateSummary(List<Tour> tours)
+        public void CreateSummary(ObservableCollection<Tour> tours)
         {
             PdfWriter writer = new PdfWriter(filePath + "Summarydemo.pdf");
             PdfDocument pdf = new PdfDocument(writer);

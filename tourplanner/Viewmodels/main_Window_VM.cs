@@ -23,6 +23,9 @@ namespace tourplanner.Viewmodels
             DelCommand = new BaseCommand(OpenDel);
             LogCommand = new BaseCommand(OpenLog);
             AddLCommand = new BaseCommand(OpenAddLog);
+            SumCommand = new BaseCommand(CreateSum);
+            RepCommand = new BaseCommand(CreateRep);
+
             GetTours();
         }
         public Tour selected_Tour { get; set; }
@@ -34,6 +37,8 @@ namespace tourplanner.Viewmodels
         public ICommand DelCommand { get; set; }
         public ICommand LogCommand { get; set; }
         public ICommand AddLCommand { get; set; }
+        public ICommand RepCommand { get; set; }
+        public ICommand SumCommand { get; set; }
 
         public object selectedViewModel;
         public object SelectedViewModel
@@ -127,8 +132,18 @@ namespace tourplanner.Viewmodels
             log.Info("Changing to AddLog view");
             SelectedViewModel = new add_Log_VM(selected_Tour);
         }
-        
-        
+        private void CreateRep(object obj)
+        {
+            var pdfGen = new PdfGenerator();
+            pdfGen.CreateReport(Selected_Tour);
+        }
+        private void CreateSum(object obj)
+        {
+            var pdfGen = new PdfGenerator();
+            pdfGen.CreateSummary(Tour_List);
+        }
+
+
 
         public class BaseCommand : ICommand
         {
