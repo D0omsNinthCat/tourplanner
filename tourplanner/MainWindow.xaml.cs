@@ -23,7 +23,7 @@ namespace tourplanner
         {
             log4net.Config.XmlConfigurator.Configure();
             InitializeComponent();
-            DataContext = new main_Window_VM();
+            //DataContext = new main_Window_VM();
         }
     }
 }
