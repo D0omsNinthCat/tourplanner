@@ -29,7 +29,7 @@ namespace tourplanner.Viewmodels
             FilCommand = new BaseCommand(ImportFile);
             SeaCommand = new BaseCommand(OpenSea);
             _fact = Factory.get_Fact();
-            GetTours();
+            Tour_List = GetTours();
         }
         public Tour selected_Tour { get; set; }
         public string search_Term { get; set; }
@@ -55,20 +55,21 @@ namespace tourplanner.Viewmodels
             set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
         }
 
-        public void GetTours()
+        public ObservableCollection<Tour> GetTours()
         {
             log.Info("Trying to refresh Tourlist to no avail :(");
             dataAccessObject = new DAO();
-            Tour_List= new ObservableCollection<Tour>();
-            if (Tour_List != null)
+            ObservableCollection<Tour> tours_Gotten = new ObservableCollection<Tour>();
+            if (tours_Gotten != null)
             {
-                this.Tour_List.Clear();
+                tours_Gotten.Clear();
             }
             foreach(Tour t in dataAccessObject.GetTourList())
             {
-                Tour_List.Add(t);
+                tours_Gotten.Add(t);
                 //BUG: Tour_List Binding does not update even when emptying and refilling List with new items
             }
+            return tours_Gotten;
         }
 
 
@@ -171,8 +172,9 @@ namespace tourplanner.Viewmodels
         private void OpenSea(object obj)
         {
             log.Info("Changing to Search Results view");
+            Tour_List = GetTours();
             ObservableCollection<Tour> search_Result = _fact.search(Search_Term, Tour_List);
-            GetTours();
+            
             Tour_List = search_Result;
         }
 
