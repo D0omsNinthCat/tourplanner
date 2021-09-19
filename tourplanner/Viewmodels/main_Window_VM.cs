@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tourplanner.Models;
 using System.Windows.Input;
 using tourplanner.DALayer;
+using tourplanner.BL;
 using Microsoft.Xaml.Behaviors.Core;
 
 namespace tourplanner.Viewmodels
@@ -26,10 +27,12 @@ namespace tourplanner.Viewmodels
             SumCommand = new BaseCommand(CreateSum);
             RepCommand = new BaseCommand(CreateRep);
             FilCommand = new BaseCommand(ImportFile);
+            SeaCommand = new BaseCommand(OpenSea);
 
             GetTours();
         }
         public Tour selected_Tour { get; set; }
+        public string search_Term { get; set; }
         private DAO dataAccessObject { get; set; }
         public Filesystem filesystem { get; set; }
         public ObservableCollection<Tour> tour_List { get; set; }
@@ -42,6 +45,8 @@ namespace tourplanner.Viewmodels
         public ICommand RepCommand { get; set; }
         public ICommand SumCommand { get; set; }
         public ICommand FilCommand { get; set; }
+        public ICommand SeaCommand { get; set; }
+        private IFactory _fact;
 
         public object selectedViewModel;
         public object SelectedViewModel
@@ -150,6 +155,12 @@ namespace tourplanner.Viewmodels
             filesystem = new Filesystem();
             Tour importedTour = filesystem.OpenFile();
             dataAccessObject.AddTour(importedTour);
+        }
+        private void OpenSea(object obj)
+        {
+            log.Info("Changing to Search Results view");
+            ObservableCollection<Tour> search_Result = _fact.search(search_Term, Tour_List);
+            //SelectedViewModel = new search_Result_VM(search_Term);
         }
 
 
