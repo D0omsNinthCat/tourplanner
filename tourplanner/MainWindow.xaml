@@ -30,9 +30,6 @@
         <DataTemplate DataType="{x:Type local:add_Log_VM}">
             <views:add_Log></views:add_Log>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:search_Result_VM}">
-            <views:search_Result></views:search_Result>
-        </DataTemplate>
     </Window.Resources>
     <Grid>
         
@@ -43,7 +40,7 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Content="File" MinWidth="50" Command="{Binding FilCommand}"></Button>
-            <Button Content="Options" MinWidth="50" Command="{Binding OptCommand}"></Button>
+            <Button Content="Refresh" MinWidth="50" Command="{Binding RfrCommand}"></Button>
             <Button Content="Report" MinWidth="50" Command="{Binding RepCommand}"></Button>
             <Button Content="Summary" MinWidth="50" Command="{Binding SumCommand}"></Button>
         </StackPanel>
