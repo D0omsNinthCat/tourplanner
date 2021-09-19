@@ -15,9 +15,6 @@
         <DataTemplate DataType="{x:Type local:tour_Details_VM}">
             <views:tour_Details></views:tour_Details>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type local:options_VM}">
-            <views:options></views:options>
-        </DataTemplate>
         <DataTemplate DataType="{x:Type local:tour_Add_VM}">
             <views:tour_Add></views:tour_Add>
         </DataTemplate>
