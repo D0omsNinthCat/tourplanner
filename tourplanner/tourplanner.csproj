@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\tourplanner.BL\tourplanner.BL.csproj" />
     <ProjectReference Include="..\tourplanner.DALayer\tourplanner.DALayer.csproj" />
     <ProjectReference Include="..\tourplanner.Models\tourplanner.Models.csproj" />
   </ItemGroup>

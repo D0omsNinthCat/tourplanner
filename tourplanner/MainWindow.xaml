@@ -30,6 +30,9 @@
         <DataTemplate DataType="{x:Type local:add_Log_VM}">
             <views:add_Log></views:add_Log>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type local:search_Result_VM}">
+            <views:search_Result></views:search_Result>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         
@@ -51,8 +54,8 @@
             <Button Content="Edit" MinWidth="50" Command="{Binding DetCommand}"></Button>
             <Button Content="Show Logs" MinWidth="50" Command="{Binding LogCommand}"></Button>
             <Button Content="Add Log" MinWidth="50" Command="{Binding AddLCommand}"></Button>
-            <Button Content="Search" MinWidth="50"></Button>
-            <TextBox Text="eg. Wien" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+            <Button Content="Search" MinWidth="50" Command="{Binding SeaCommand}"></Button>
+            <TextBox Text="{Binding Search_Term}" HorizontalAlignment="Stretch"  VerticalContentAlignment="Center"/>
             
 
         </DockPanel>

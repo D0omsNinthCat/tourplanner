@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using tourplanner.Models;
 using System.Windows.Input;
 using tourplanner.DALayer;
+using tourplanner.BL;
 using Microsoft.Xaml.Behaviors.Core;
 
 namespace tourplanner.Viewmodels
@@ -26,10 +27,12 @@ namespace tourplanner.Viewmodels
             SumCommand = new BaseCommand(CreateSum);
             RepCommand = new BaseCommand(CreateRep);
             FilCommand = new BaseCommand(ImportFile);
-
-            GetTours();
+            SeaCommand = new BaseCommand(OpenSea);
+            _fact = Factory.get_Fact();
+            Tour_List = GetTours();
         }
         public Tour selected_Tour { get; set; }
+        public string search_Term { get; set; }
         private DAO dataAccessObject { get; set; }
         public Filesystem filesystem { get; set; }
         public ObservableCollection<Tour> tour_List { get; set; }
@@ -42,6 +45,8 @@ namespace tourplanner.Viewmodels
         public ICommand RepCommand { get; set; }
         public ICommand SumCommand { get; set; }
         public ICommand FilCommand { get; set; }
+        public ICommand SeaCommand { get; set; }
+        private IFactory _fact;
 
         public object selectedViewModel;
         public object SelectedViewModel
@@ -50,20 +55,21 @@ namespace tourplanner.Viewmodels
             set { selectedViewModel = value; OnPropertyChanged("SelectedViewModel"); }
         }
 
-        public void GetTours()
+        public ObservableCollection<Tour> GetTours()
         {
             log.Info("Trying to refresh Tourlist to no avail :(");
             dataAccessObject = new DAO();
-            Tour_List= new ObservableCollection<Tour>();
-            if (Tour_List != null)
+            ObservableCollection<Tour> tours_Gotten = new ObservableCollection<Tour>();
+            if (tours_Gotten != null)
             {
-                this.Tour_List.Clear();
+                tours_Gotten.Clear();
             }
             foreach(Tour t in dataAccessObject.GetTourList())
             {
-                Tour_List.Add(t);
+                tours_Gotten.Add(t);
                 //BUG: Tour_List Binding does not update even when emptying and refilling List with new items
             }
+            return tours_Gotten;
         }
 
 
@@ -76,6 +82,18 @@ namespace tourplanner.Viewmodels
                 {
                     tour_List = value;
                     OnPropertyChanged(nameof(tour_List));
+                }
+            }
+        }
+        public string Search_Term
+        {
+            get { return search_Term; }
+            set
+            {
+                if ((value != null) && (search_Term != value))
+                {
+                    search_Term = value;
+                    OnPropertyChanged(nameof(search_Term));
                 }
             }
         }
@@ -150,6 +168,14 @@ namespace tourplanner.Viewmodels
             filesystem = new Filesystem();
             Tour importedTour = filesystem.OpenFile();
             dataAccessObject.AddTour(importedTour);
+        }
+        private void OpenSea(object obj)
+        {
+            log.Info("Changing to Search Results view");
+            Tour_List = GetTours();
+            ObservableCollection<Tour> search_Result = _fact.search(Search_Term, Tour_List);
+            
+            Tour_List = search_Result;
         }
 
 
