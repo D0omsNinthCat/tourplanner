@@ -16,6 +16,9 @@ namespace tourplanner.Viewmodels
         public Tour selected_Tour { get; set; }
         public Uri imageUri { get; set; }
         public BitmapImage imageBitmap { get; set; }
+        public Filesystem filesystem { get; set; }
+        public RelayCommand RelayCommand { get; set; }
+        public ICommand _exportFunc;
         public home_VM(Tour selected_Tour)
         {
             this.selected_Tour = selected_Tour;
@@ -38,7 +41,23 @@ namespace tourplanner.Viewmodels
             //ADD CONDITIONS
             return true;
         }
-        
-        
+        public ICommand ExportFunc
+        {
+            get
+            {
+                if (_exportFunc == null)
+                {
+                    _exportFunc = new RelayCommand(param => this.Export(), param => this.CanExecute());
+                }
+                return _exportFunc;
+            }
+        }
+        private void Export()
+        {
+            filesystem = new Filesystem();
+            filesystem.ExportTour(this.selected_Tour);
+        }
+
+
     }
 }

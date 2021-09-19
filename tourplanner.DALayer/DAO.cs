@@ -43,5 +43,10 @@ namespace tourplanner.DALayer
         {
             dataAccessObject.DeleteLog(l);
         }
+        public async Task<Tour> GetAPI(Tour t)
+        {
+            t = await dataAccessObject.GetAPI(t);
+            return t;
+        }
     }
 }

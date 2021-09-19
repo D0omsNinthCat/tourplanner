@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.Models", "tourp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.DALayer", "tourplanner.DALayer\tourplanner.DALayer.csproj", "{60D41DA2-48A3-434C-A9D4-090A9EAFFB05}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tourplanner.UnitTest", "tourplanner.UnitTest\tourplanner.UnitTest.csproj", "{113479C1-E1FC-4AB8-9C81-BC8829DECE72}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,12 +34,6 @@ Global
 		{60D41DA2-48A3-434C-A9D4-090A9EAFFB05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{60D41DA2-48A3-434C-A9D4-090A9EAFFB05}.test|Any CPU.ActiveCfg = Debug|Any CPU
 		{60D41DA2-48A3-434C-A9D4-090A9EAFFB05}.test|Any CPU.Build.0 = Debug|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.test|Any CPU.ActiveCfg = Debug|Any CPU
-		{113479C1-E1FC-4AB8-9C81-BC8829DECE72}.test|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

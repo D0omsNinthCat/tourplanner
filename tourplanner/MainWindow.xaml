@@ -39,7 +39,7 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <Button Content="File" MinWidth="50"></Button>
+            <Button Content="File" MinWidth="50" Command="{Binding FilCommand}"></Button>
             <Button Content="Options" MinWidth="50" Command="{Binding OptCommand}"></Button>
             <Button Content="Report" MinWidth="50" Command="{Binding RepCommand}"></Button>
             <Button Content="Summary" MinWidth="50" Command="{Binding SumCommand}"></Button>
