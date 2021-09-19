@@ -19,7 +19,7 @@ namespace tourplanner.Viewmodels
         {
             log.Info("Initiating Main View");
             DetCommand = new BaseCommand(OpenDet);
-            OptCommand = new BaseCommand(OpenOpt);
+            RfrCommand = new BaseCommand(Refresh);
             AddCommand = new BaseCommand(OpenAdd);
             DelCommand = new BaseCommand(OpenDel);
             LogCommand = new BaseCommand(OpenLog);
@@ -37,7 +37,7 @@ namespace tourplanner.Viewmodels
         public Filesystem filesystem { get; set; }
         public ObservableCollection<Tour> tour_List { get; set; }
         public ICommand DetCommand { get; set; }
-        public ICommand OptCommand { get; set; }
+        public ICommand RfrCommand { get; set; }
         public ICommand AddCommand { get; set; }
         public ICommand DelCommand { get; set; }
         public ICommand LogCommand { get; set; }
@@ -125,10 +125,10 @@ namespace tourplanner.Viewmodels
             }
             
         }
-        private void OpenOpt(object obj)
+        private void Refresh(object obj)
         {
-            log.Info("Changing to Options view");
-            SelectedViewModel = new options_VM();
+            log.Info("Refreshing Tour List");
+            Tour_List = GetTours();
         }
         private void OpenAdd(object obj)
         {
