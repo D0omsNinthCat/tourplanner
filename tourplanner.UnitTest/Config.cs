@@ -5,7 +5,7 @@ using tourplanner;
 namespace tourplanner.UnitTest
 {
     [TestFixture]
-    public class UnitTest1
+    public class Config
     {
         private string connectionstring = "Host = localhost; Username=postgres;Password=1234;Database=tourplanner";
         private string Connectionstring = ConfigurationManager.AppSettings.Get("connectionstring");

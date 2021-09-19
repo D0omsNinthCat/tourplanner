@@ -25,11 +25,13 @@ namespace tourplanner.Viewmodels
             AddLCommand = new BaseCommand(OpenAddLog);
             SumCommand = new BaseCommand(CreateSum);
             RepCommand = new BaseCommand(CreateRep);
+            FilCommand = new BaseCommand(ImportFile);
 
             GetTours();
         }
         public Tour selected_Tour { get; set; }
         private DAO dataAccessObject { get; set; }
+        public Filesystem filesystem { get; set; }
         public ObservableCollection<Tour> tour_List { get; set; }
         public ICommand DetCommand { get; set; }
         public ICommand OptCommand { get; set; }
@@ -39,6 +41,7 @@ namespace tourplanner.Viewmodels
         public ICommand AddLCommand { get; set; }
         public ICommand RepCommand { get; set; }
         public ICommand SumCommand { get; set; }
+        public ICommand FilCommand { get; set; }
 
         public object selectedViewModel;
         public object SelectedViewModel
@@ -141,6 +144,12 @@ namespace tourplanner.Viewmodels
         {
             var pdfGen = new PdfGenerator();
             pdfGen.CreateSummary(Tour_List);
+        }
+        private void ImportFile(object obj)
+        {
+            filesystem = new Filesystem();
+            Tour importedTour = filesystem.OpenFile();
+            dataAccessObject.AddTour(importedTour);
         }
 
 
