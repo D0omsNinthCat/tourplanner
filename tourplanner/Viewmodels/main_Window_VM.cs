@@ -28,7 +28,7 @@ namespace tourplanner.Viewmodels
             RepCommand = new BaseCommand(CreateRep);
             FilCommand = new BaseCommand(ImportFile);
             SeaCommand = new BaseCommand(OpenSea);
-
+            _fact = Factory.get_Fact();
             GetTours();
         }
         public Tour selected_Tour { get; set; }
@@ -81,6 +81,18 @@ namespace tourplanner.Viewmodels
                 {
                     tour_List = value;
                     OnPropertyChanged(nameof(tour_List));
+                }
+            }
+        }
+        public string Search_Term
+        {
+            get { return search_Term; }
+            set
+            {
+                if ((value != null) && (search_Term != value))
+                {
+                    search_Term = value;
+                    OnPropertyChanged(nameof(search_Term));
                 }
             }
         }
@@ -159,8 +171,9 @@ namespace tourplanner.Viewmodels
         private void OpenSea(object obj)
         {
             log.Info("Changing to Search Results view");
-            ObservableCollection<Tour> search_Result = _fact.search(search_Term, Tour_List);
-            //SelectedViewModel = new search_Result_VM(search_Term);
+            ObservableCollection<Tour> search_Result = _fact.search(Search_Term, Tour_List);
+            GetTours();
+            Tour_List = search_Result;
         }
 
 

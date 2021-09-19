@@ -55,7 +55,7 @@
             <Button Content="Show Logs" MinWidth="50" Command="{Binding LogCommand}"></Button>
             <Button Content="Add Log" MinWidth="50" Command="{Binding AddLCommand}"></Button>
             <Button Content="Search" MinWidth="50" Command="{Binding SeaCommand}"></Button>
-            <TextBox Text="eg. Wien" HorizontalAlignment="Stretch" VerticalContentAlignment="Center"/>
+            <TextBox Text="{Binding Search_Term}" HorizontalAlignment="Stretch"  VerticalContentAlignment="Center"/>
             
 
         </DockPanel>
